@@ -1,8 +1,8 @@
 #include "PersonalMedico.h"
 #include "Persona.h"
 
-PersonalMedico::PersonalMedico(string _nombre, string _apellido, int _medicoID):Persona(_nombre, _apellido){
-    medicoID= _medicoID;
+PersonalMedico::PersonalMedico(string nombre, string apellido, int medicoID):Persona(nombre, apellido){
+    this->medicoID= medicoID;
 };
 
 int PersonalMedico::getMedicoID(){

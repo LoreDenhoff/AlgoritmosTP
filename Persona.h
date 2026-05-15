@@ -9,9 +9,9 @@ class Persona{
         string nombre;
         string apellido;
     public:
-        Persona(string _nombre, string _apellido){
-            nombre= _nombre;
-            apellido= _apellido;
+        Persona(string nombre, string apellido){
+            nombre= nombre;
+            apellido= apellido;
         };
         virtual ~Persona(){};
         virtual void mostrarInfo()=0;

@@ -1,26 +1,37 @@
 #include <iostream>
-#include <stdexcept>
+#include "Paciente.h"
+#include "Ingreso.h"
 #include "Fecha.h"
+
 using namespace std;
 
-int main(){
-	/*probar si funciona fecha
-	try{
-		Fecha fecha(25,02,2021);
-		cout<<"fecha valida: "<<fecha.getDia()<< "/"<<fecha.getMes()<<"/"<<fecha.getAnio()<<endl;
-	}catch (invalid_argument error){
-		cout<<error.what()<<endl;
-	}
-	return 0;*/
-	
-	/*probando comparación de fechas
-	Fecha fecha2(10, 5, 2021);
-	Fecha fecha1(20, 5, 2021);
-	
-	if(fecha1.mayorIgualQue(fecha2)){
-		cout<<"fecha1 es mayor o igual"<<endl;
-	}else{
-		cout<<"fecha2 es mayor o igual"<<endl;
-	}
-	return 0;*/
+int main() {
+    // Crear fechas
+    Fecha f1(10, 3, 2025);
+    Fecha f2(15, 3, 2025);
+
+    // Crear ingreso
+    Ingreso ingreso1(1, f1, "	ll");
+
+    // Crear paciente
+    Paciente p("Juan", "PÃ©rez", 1001, 30123456, 72.5, 2);
+
+    // Agregar ingreso al paciente
+    p.agregarIngreso(ingreso1);
+
+    // Probar getters
+    cout << "Paciente ID: " << p.getPacienteID() << endl;
+    cout << "DNI: " << p.getDni() << endl;
+    cout << "Peso: " << p.getPesoKg() << " kg" << endl;
+
+    // Mostrar ingresos
+    for (const auto& ing : p.getIngresos()) {
+        cout << "Ingreso ID: " << ing.getIngresoID() << endl;
+        cout << "Fecha ingreso: " 
+             << ing.getFechaIngresoDerivacion().getDia() << "/"
+             << ing.getFechaIngresoDerivacion().getMes() << "/"
+             << ing.getFechaIngresoDerivacion().getAnio() << endl;
+    }
+
+    return 0;
 }

@@ -1,5 +1,5 @@
 
-#include "Persona.h";
+#include "Persona.h"
 
 string Persona::getNombre(){
     return nombre;

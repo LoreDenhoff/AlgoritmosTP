@@ -9,7 +9,7 @@ class PersonalMedico: public Persona{
         int medicoID;
 
         public:
-        PersonalMedico(string _nombre, string _apellido, int _medicoID);
+        PersonalMedico(string nombre, string apellido, int medicoID);
         int getMedicoID();
 };
 

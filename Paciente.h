@@ -16,14 +16,15 @@ class Paciente: public Persona{
         vector<Ingreso> ingresos;
 
         public:
-        Paciente(string _nombre, string _apellido, int _pacienteID, int _dni, 
-            float _pesoKg, int _prioridad);
-        int getPacienteID();
-        int getDni();
-        float getPesoKg();
-        int getPrioridad();
+        Paciente(string nombre, string apellido, int pacienteID, int dni, 
+            float pesoKg, int prioridad);
+        void mostrarInfo();
+        int getPacienteID() const;
+        int getDni() const;
+        float getPesoKg() const;
+        int getPrioridad() const;
         void agregarIngreso(const Ingreso& nuevoIngreso);
-        vector<Ingreso> getIngresos();
+        vector<Ingreso> getIngresos() const;
 };
 
 

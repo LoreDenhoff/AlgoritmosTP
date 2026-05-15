@@ -1,0 +1,28 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe compilar archivo activo",
+            "command": "C:\\mingw32\\bin\\g++.exe",
+            "args": [
+                "*.cpp", 
+                "-o", 
+                "sistemaHospitalario", 
+                "-std=c++17", 
+                "-Wall", "-Wextra"],
+
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
+        }
+    ],
+    "version": "2.0.0"
+}

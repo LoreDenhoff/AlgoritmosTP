@@ -4,9 +4,10 @@
 #include <vector>
 #include "Especialidad.h"
 #include "Fecha.h"
+#include "Paciente.h"
 using namespace std;
 
-classHospital{
+class Hospital{
 	private:
 		string hospitalId;
 		string nombre;
@@ -18,8 +19,7 @@ classHospital{
 		
 	public:
 		Hospital();
-		Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas, int personalMedico, int presupuestoAnual;
-		vector<Especialidad> especialidades);
+		Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas, int personalMedico, int presupuestoAnual, vector<Especialidad> especialidades);
 		
 		string getHospitalId() const;
 		string getNombre() const;
