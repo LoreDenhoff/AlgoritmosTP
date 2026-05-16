@@ -6,6 +6,7 @@ using namespace std;
 
 class Diagnostico {
     private:
+        int diagnosticoID; //para las relaciones - despues vemos donde
         string nombre;
         int frecuencia;
 

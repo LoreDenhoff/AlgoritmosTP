@@ -1,6 +1,8 @@
 #include "Paciente.h"
 #include "Persona.h"
 #include "Ingreso.h"
+#include <iostream>
+using namespace std;
 
 Paciente::Paciente(string nombre, string apellido, int pacienteID, int dni, float pesoKg, int prioridad):Persona(nombre, apellido){
     this->pacienteID= pacienteID;

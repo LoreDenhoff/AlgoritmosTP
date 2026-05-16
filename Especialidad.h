@@ -6,6 +6,7 @@ using namespace std;
 
 class Especialidad {
     private:
+        int especialidadID; //para las relaciones
         string nombre;
 
     public:
