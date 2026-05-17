@@ -79,3 +79,5 @@ void Hospital::ingresarPaciente(Paciente paciente){
 	}
 
 }
+
+
