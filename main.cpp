@@ -1,8 +1,9 @@
 #include <iostream>
+#include <vector>
+#include "Hospital.h"
 #include "Paciente.h"
 #include "Ingreso.h"
 #include "Fecha.h"
-
 using namespace std;
 
 int main() {
@@ -33,5 +34,7 @@ int main() {
              << ing.getFechaIngresoDerivacion().getAnio() << endl;
     }
 
+
     return 0;
 }
+

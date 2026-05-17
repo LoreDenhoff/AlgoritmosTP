@@ -5,6 +5,7 @@
 #include "Especialidad.h"
 #include "Fecha.h"
 #include "Paciente.h"
+#include "Ingreso.h"
 using namespace std;
 
 class Hospital{
@@ -16,6 +17,8 @@ class Hospital{
 		int personalMedico;
 		int presupuestoAnual;
 		vector<Especialidad> especialidades;
+		vector<Paciente> pacientesActivos;
+		vector<Ingreso> ingresos;
 		
 	public:
 		Hospital();
@@ -28,11 +31,16 @@ class Hospital{
 		int getPersonalMedico() const;
 		int getPresupuestoAnual() const;
 		vector<Especialidad> getEspecialidades() const;
+		vector<Paciente> getPacientesActivos() const;
 		
-		bool tieneSobrecargo() const;
-		int pacientesAtendidos (Fecha fechaDesde, Fecha fechaHasta) const;
-		void ingresarPaciente(Paciente paciente);
-		vector<Ingreso> ingresosEnRango(Fecha fechaDesde, Fecha fechaHasta) const;
+		void mostrarInformacion() const;
+		bool ofreceEspecialidad(string nombreEspecialidad) const;
+		bool tieneSobrecarga() const;
+		int cantPacientesActivos() const;//una funcion?
+		int camasDisponibles() const;
+		int pacientesAtendidosEnRango (Fecha fechaDesde, Fecha fechaHasta) const;
+		void ingresarPaciente(Paciente paciente); //Ingreso un paciente o hago un ingreso?
+		//vector<Ingreso> ingresosEnRango(Fecha fechaDesde, Fecha fechaHasta) const;
 };
 
 #endif
