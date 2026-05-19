@@ -6,12 +6,12 @@ using namespace std;
 
 class Diagnostico {
     private:
-        int diagnosticoID; //para las relaciones - despues vemos donde
+        int diagnosticoId; //para las relaciones - despues vemos donde
         string nombre;
         int frecuencia;
 
     public:
-        Diagnostico(string nombre, int frecuencia);
+        Diagnostico(int diagnosticoId, string nombre, int frecuencia);
         string getDiagnosticoNombre() const;
         int getDiagnosticoFrecuencia() const;
 };

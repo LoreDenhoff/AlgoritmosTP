@@ -1,12 +1,17 @@
 #include "Diagnostico.h"
 
-Diagnostico::Diagnostico(string nombre, int frecuencia){
+Diagnostico::Diagnostico(int diagnosticoId, string nombre, int frecuencia){
+	this->diagnosticoId=diagnosticoId;
     this->nombre= nombre;
     this->frecuencia= frecuencia;
 };
+
+int Diagnistico::getDiagnosticoId() const{
+	return diagnosticoId;
+}
 string Diagnostico::getDiagnosticoNombre() const{
-    return this->nombre;
+    return nombre;
 };
 int Diagnostico::getDiagnosticoFrecuencia() const{
-    return this->frecuencia;
+    return frecuencia;
 };

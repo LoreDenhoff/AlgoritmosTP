@@ -1,15 +1,15 @@
-# Project: Proyecto 
+# Project: SisHosp
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Fecha.o
-LINKOBJ  = main.o Fecha.o
+OBJ      = main.o Diagnostico.o Eespecialidad.o Fecha.o Hospital.o Ingreso.o Paciente.o Persona.o PersonalMedico.o SistemaHospitalario.o Turno.o
+LINKOBJ  = main.o Diagnostico.o Eespecialidad.o Fecha.o Hospital.o Ingreso.o Paciente.o Persona.o PersonalMedico.o SistemaHospitalario.o Turno.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = "Proyecto .exe"
+BIN      = SisHosp.exe
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
 RM       = rm.exe -f
@@ -27,5 +27,32 @@ $(BIN): $(OBJ)
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
+Diagnostico.o: Diagnostico.cpp
+	$(CPP) -c Diagnostico.cpp -o Diagnostico.o $(CXXFLAGS)
+
+Eespecialidad.o: Eespecialidad.cpp
+	$(CPP) -c Eespecialidad.cpp -o Eespecialidad.o $(CXXFLAGS)
+
 Fecha.o: Fecha.cpp
 	$(CPP) -c Fecha.cpp -o Fecha.o $(CXXFLAGS)
+
+Hospital.o: Hospital.cpp
+	$(CPP) -c Hospital.cpp -o Hospital.o $(CXXFLAGS)
+
+Ingreso.o: Ingreso.cpp
+	$(CPP) -c Ingreso.cpp -o Ingreso.o $(CXXFLAGS)
+
+Paciente.o: Paciente.cpp
+	$(CPP) -c Paciente.cpp -o Paciente.o $(CXXFLAGS)
+
+Persona.o: Persona.cpp
+	$(CPP) -c Persona.cpp -o Persona.o $(CXXFLAGS)
+
+PersonalMedico.o: PersonalMedico.cpp
+	$(CPP) -c PersonalMedico.cpp -o PersonalMedico.o $(CXXFLAGS)
+
+SistemaHospitalario.o: SistemaHospitalario.cpp
+	$(CPP) -c SistemaHospitalario.cpp -o SistemaHospitalario.o $(CXXFLAGS)
+
+Turno.o: Turno.cpp
+	$(CPP) -c Turno.cpp -o Turno.o $(CXXFLAGS)

@@ -12,7 +12,7 @@ int main() {
     Fecha f2(15, 3, 2025);
 
     // Crear ingreso
-    Ingreso ingreso1(1, f1, "	ll");
+    Ingreso ingreso1(1, f1);
 
     // Crear paciente
     Paciente p("Juan", "Pérez", 1001, 30123456, 72.5, 2);
@@ -25,14 +25,14 @@ int main() {
     cout << "DNI: " << p.getDni() << endl;
     cout << "Peso: " << p.getPesoKg() << " kg" << endl;
 
-    // Mostrar ingresos
-    for (const auto& ing : p.getIngresos()) {
-        cout << "Ingreso ID: " << ing.getIngresoID() << endl;
+    /* Mostrar ingresos
+    for (const auto& ingre : p.getIngresos()) {
+        cout << "Ingreso ID: " << ingre.getIngresoID() << endl;
         cout << "Fecha ingreso: " 
-             << ing.getFechaIngresoDerivacion().getDia() << "/"
-             << ing.getFechaIngresoDerivacion().getMes() << "/"
-             << ing.getFechaIngresoDerivacion().getAnio() << endl;
-    }
+             << ingre.getFechaIngresoDerivacion().getDia() << "/"
+             << ingre.getFechaIngresoDerivacion().getMes() << "/"
+             << ingre.getFechaIngresoDerivacion().getAnio() << endl;
+    }*/
 
 
     return 0;

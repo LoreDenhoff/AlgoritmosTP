@@ -1,7 +1,8 @@
 #include "Especialidad.h"
 
-Especialidad::Especialidad(string nombre){
-    this->nombre = nombre;
+Especialidad::Especialidad(int especialidadId, string nombre){
+    this->especialidadId=especialidadId;
+	this->nombre = nombre;
 }
 
 string Especialidad::getEspecialidadNombre() const{

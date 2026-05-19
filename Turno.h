@@ -1,7 +1,9 @@
 #ifndef TURNO_H
 #define TURNO_H
+#include<string>
 #include "Fecha.h"
 #include "PersonalMedico.h"
+using namescape std;
 
 class Turno{
     private:

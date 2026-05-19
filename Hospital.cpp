@@ -1,4 +1,6 @@
 #include "Hospital.h"
+#include<iostream>
+using namespace std;
 
 Hospital::Hospital(){
 	hospitalId="";
@@ -36,12 +38,12 @@ void Hospital::mostrarInformacion() const{
 	cout<< "Personal Médico: " <<personalMedico<< endl;
 	cout<< "Presupuesto anual: " <<presupuestoAnual<< endl;
 	cout<< "Pacientes activos: " <<pacientesActivos.size()<< endl;
-	cout<< "Camas disponibles: " <<camasDisponibles<< endl;
+	cout<< "Camas disponibles: " <<camasDisponibles()<< endl;
 }
 
 bool Hospital::ofreceEspecialidad(string nombreEspecialidad) const{
 	for(int i=0; i<especialidades.size();i++){
-		if(especialidad[i].getNombre()==nombreEspecialidad){
+		if(especialidades[i].getEspecialidadNombre()==nombreEspecialidad){
 			return true;
 		}
 	}
@@ -63,17 +65,17 @@ int Hospital::camasDisponibles() const{
 int Hospital::pacientesAtendidosEnRango(Fecha fechaDesde, Fecha fechaHasta) const{
 	int cont=0;
 	for(int i=0; i<ingresos.size(); i++){
-		Fecha fechaIngreso=ingresos[i].getFechaIngreso();
-		if(fechaIngreso.esMayorOIgual(fechaDesde) && fechaIngreso.esMenosOIgual(fechaHasta)){
-			contador++
+		Fecha fechaIngreso=ingresos[i].getFechaIngresoDerivacion();
+		if(fechaIngreso.mayorIgualQue(fechaDesde) && fechaIngreso.menorIgualQue(fechaHasta)){
+			cont++
 		}
 	}
-	return contador;
+	return cont;
 }
 
 void Hospital::ingresarPaciente(Paciente paciente){
-	if(camasDisponibles>0){ 
-		pacientesActivos.push_back(pacientes);
+	if(camasDisponibles()>0){ 
+		pacientesActivos.push_back(paciente);
 	} else{
 		cout<<"No hay camas disponibles"<< endl;
 	}

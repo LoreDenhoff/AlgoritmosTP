@@ -10,7 +10,7 @@ SistemaHospitalario::SistemaHospitalario(int capacidadTabla){
 //Existen diferentes manera d ehacer la funcion hash, comparar
 int SistemaHospitalario::funcionHash(string codigo) const{
 	int suma=0;
-	for(int i=0;i>codigo.length();i++){
+	for(int i=0;i<codigo.length();i++){
 		suma+=codigo[i]*(i+1);
 	}
 	return suma%capacidadTabla;
@@ -29,20 +29,21 @@ void SistemaHospitalario::agregarHospital(Hospital hospital){
 	cantHospitales++;
 }
 
+//falta derivar a otro hospital
 void SistemaHospitalario::eliminarHospital(string codigo){
 	int indiceHash=funcionHash(codigo);
 	
 	for(int i=0; i<tablaHash[indiceHash].size();i++) {
 		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
 			tablaHash[indiceHash].erase(tablaHash[indiceHash].begin()+i);
-			cantHospitales--,
+			cantHospitales--;
 			return true;
 		}
 	}
 	return false;
 }
 
-Hospital* SistemaHospitalario::buscarHospital(stringCodigo){
+Hospital* SistemaHospitalario::buscarHospital(string Codigo){
 	int indiceHash=funcionHash(codigo);
 	
 	for(int i=0; i<tablaHash[indiceHash].size();i++){
@@ -53,7 +54,7 @@ Hospital* SistemaHospitalario::buscarHospital(stringCodigo){
 	return nullptr;
 }
 
-Hospital* SistemaHospitalario::mostrarHospital(stringCodigo){
+void SistemaHospitalario::mostrarHospital(stringCodigo){
 	int indiceHash=funcionHash(codigo);
 	
 	for(int i=0; i<tablaHash[indiceHash].size();i++){
@@ -69,16 +70,22 @@ vector<Hospital>SistemaHospitalario::obtenerTodosLosHospitales() const{
 	vector<Hospital>hospitales;
 	
 	for(int i=0;i<tablaHash.size();i++){
-		for(int j=0;j<tablaHash.size();j++){
+		for(int j=0;j<tablaHash[i].size();j++){
 			hospitales.push_back(tablaHash[i][j]);
 		}
 	}
 	return hospitales;
 }
 	//ver que algoritmo de ordenamieno conviene
-	void ordenarPorCapacidadCamas();
-	void ordenarPorPersonalMedico();
-	void ordenarPorPresupuestoAnual();
+	void ordenarPorCapacidadCamas();{
+	//codigo
+	}
+	void ordenarPorPersonalMedico();{
+	//codigo
+	}
+	void ordenarPorPresupuestoAnual();{
+	//codigo
+	}
 	
 vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 	vector<Hospital>hospitales=obtenerTodosLosHospitales();
@@ -86,12 +93,12 @@ vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 	
 	for(int i=0;i<hospitales.size();i++){
 		if(hospitales[i].ofreceEspecialidad(especialidad)){
-			resultado.push_back(hospital[i]);
+			resultado.push_back(hospitales[i]);
 		}
 	}
 	for(int i=0;i<resultado.size()-1;i++){
 		for(int j=0;j<resultado.size()-1;j++){
-			if(resultado[j]).camasDisponibles()<resultado[j+1].camasDisponibles(){
+			if(resultado[j].camasDisponibles()<resultado[j+1].camasDisponibles()){
 				Hospital aux=resultado[j];
 				resultado[j]=resultado[j+1];
 				resultado[j+1]=aux;

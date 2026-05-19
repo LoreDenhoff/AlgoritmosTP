@@ -1,6 +1,8 @@
 #ifndef PACIENTE_H
 #define PACIENTE_H
 
+#include<vector>
+#include<string>
 #include "Prioridad.h"
 #include "Persona.h"
 #include "Ingreso.h"

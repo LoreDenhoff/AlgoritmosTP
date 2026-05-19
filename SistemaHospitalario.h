@@ -15,7 +15,7 @@ class SistemaHospitalario{
 	public:
 		SistemaHospitalario(int capacidadTabla);
 		void agregarHospital(Hospital hospital);
-		bool eliminarHospital(string codigo);
+		void eliminarHospital(string codigo);
 		Hospital* buscarHospital(string codigo);
 		void mostrarHospital(string codigo) const;
 		vector<Hospital>obtenerTodosLosHospitales() const;
