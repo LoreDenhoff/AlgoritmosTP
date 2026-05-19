@@ -24,7 +24,7 @@ class Paciente: public Persona{
         int getPacienteID() const;
         int getDni() const;
         float getPesoKg() const;
-        int getPrioridad() const;
+        Prioridad getPrioridad() const;
         void agregarIngreso(const Ingreso& nuevoIngreso);
         vector<Ingreso> getIngresos() const;
 };

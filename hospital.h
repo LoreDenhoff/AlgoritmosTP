@@ -18,7 +18,7 @@ class Hospital{
 		int presupuestoAnual;
 		vector<Especialidad> especialidades;
 		vector<Paciente> pacientesActivos;
-		vector<Ingreso> ingresos;
+		vector<Ingreso> ingreso;
 		
 	public:
 		Hospital();
@@ -39,7 +39,7 @@ class Hospital{
 		int cantPacientesActivos() const;//una funcion?
 		int camasDisponibles() const;
 		int pacientesAtendidosEnRango (Fecha fechaDesde, Fecha fechaHasta) const;
-		void ingresarPaciente(Paciente paciente); //Ingreso un paciente o hago un ingreso?
+		void ingresarPaciente(Paciente paciente, Ingreso nuevoIngreso); //Ingreso un paciente o hago un ingreso?
 		//vector<Ingreso> ingresosEnRango(Fecha fechaDesde, Fecha fechaHasta) const;
 };
 

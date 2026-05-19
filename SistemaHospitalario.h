@@ -7,7 +7,7 @@ using namespace std;
 
 class SistemaHospitalario{
 	private:
-		vector<vector<Hospital>>tablaHash;
+		vector<vector<Hospital> >tablaHash;
 		int capacidadTabla;
 		int cantHospitales;
 		int funcionHash(string codigo) const;
@@ -25,3 +25,5 @@ class SistemaHospitalario{
 		vector<Hospital> buscarPorEspecialidad(string especialidad);
 		double factorCarga() const;		
 };
+
+#endif

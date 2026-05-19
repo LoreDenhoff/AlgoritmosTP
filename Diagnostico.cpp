@@ -6,7 +6,7 @@ Diagnostico::Diagnostico(int diagnosticoId, string nombre, int frecuencia){
     this->frecuencia= frecuencia;
 };
 
-int Diagnistico::getDiagnosticoId() const{
+int Diagnostico::getDiagnosticoId() const{
 	return diagnosticoId;
 }
 string Diagnostico::getDiagnosticoNombre() const{

@@ -10,7 +10,7 @@ SistemaHospitalario::SistemaHospitalario(int capacidadTabla){
 //Existen diferentes manera d ehacer la funcion hash, comparar
 int SistemaHospitalario::funcionHash(string codigo) const{
 	int suma=0;
-	for(int i=0;i<codigo.length();i++){
+	for(size_t i=0;i<codigo.length();i++){
 		suma+=codigo[i]*(i+1);
 	}
 	return suma%capacidadTabla;
@@ -19,7 +19,7 @@ int SistemaHospitalario::funcionHash(string codigo) const{
 void SistemaHospitalario::agregarHospital(Hospital hospital){
 	int indiceHash=funcionHash(hospital.getHospitalId());
 	
-	for(int i=0; i<tablaHash[indiceHash].size();i++){
+	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
 		if(tablaHash[indiceHash][i].getHospitalId()==hospital.getHospitalId()){
 			cout<<"Hospital ya registrado"<<endl;
 			return;
@@ -33,31 +33,32 @@ void SistemaHospitalario::agregarHospital(Hospital hospital){
 void SistemaHospitalario::eliminarHospital(string codigo){
 	int indiceHash=funcionHash(codigo);
 	
-	for(int i=0; i<tablaHash[indiceHash].size();i++) {
+	for(size_t i=0; i<tablaHash[indiceHash].size();i++) {
 		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
 			tablaHash[indiceHash].erase(tablaHash[indiceHash].begin()+i);
 			cantHospitales--;
-			return true;
+			cout<<"Hospital eliminado correctamente"<<endl;
+			return;
 		}
 	}
-	return false;
+	cout<<"Hospital no encontrado"<<endl;
 }
 
-Hospital* SistemaHospitalario::buscarHospital(string Codigo){
+Hospital* SistemaHospitalario::buscarHospital(string codigo){
 	int indiceHash=funcionHash(codigo);
 	
-	for(int i=0; i<tablaHash[indiceHash].size();i++){
+	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
 		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
 			return &tablaHash[indiceHash][i];
 		}
 	}
-	return nullptr;
+	return NULL;
 }
 
-void SistemaHospitalario::mostrarHospital(stringCodigo){
+void SistemaHospitalario::mostrarHospital(string codigo) const{
 	int indiceHash=funcionHash(codigo);
 	
-	for(int i=0; i<tablaHash[indiceHash].size();i++){
+	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
 		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
 			tablaHash[indiceHash][i].mostrarInformacion();
 			return;
@@ -69,35 +70,39 @@ void SistemaHospitalario::mostrarHospital(stringCodigo){
 vector<Hospital>SistemaHospitalario::obtenerTodosLosHospitales() const{
 	vector<Hospital>hospitales;
 	
-	for(int i=0;i<tablaHash.size();i++){
-		for(int j=0;j<tablaHash[i].size();j++){
+	for(size_t i=0;i<tablaHash.size();i++){
+		for(size_t j=0;j<tablaHash[i].size();j++){
 			hospitales.push_back(tablaHash[i][j]);
 		}
 	}
 	return hospitales;
 }
 	//ver que algoritmo de ordenamieno conviene
-	void ordenarPorCapacidadCamas();{
+	void SistemaHospitalario::ordenarPorCapacidadCamas(){
 	//codigo
 	}
-	void ordenarPorPersonalMedico();{
+	void SistemaHospitalario::ordenarPorPersonalMedico(){
 	//codigo
 	}
-	void ordenarPorPresupuestoAnual();{
+	void SistemaHospitalario::ordenarPorPresupuestoAnual(){
 	//codigo
 	}
-	
+
+//revisar
 vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 	vector<Hospital>hospitales=obtenerTodosLosHospitales();
 	vector<Hospital>resultado;
 	
-	for(int i=0;i<hospitales.size();i++){
+	for(size_t i=0;i<hospitales.size();i++){
 		if(hospitales[i].ofreceEspecialidad(especialidad)){
 			resultado.push_back(hospitales[i]);
 		}
 	}
-	for(int i=0;i<resultado.size()-1;i++){
-		for(int j=0;j<resultado.size()-1;j++){
+	if(resultado.size()<=1){
+		return resultado;
+	}
+	for(size_t i=0;i<resultado.size()-1;i++){
+		for(size_t j=0;j<resultado.size()-1;j++){
 			if(resultado[j].camasDisponibles()<resultado[j+1].camasDisponibles()){
 				Hospital aux=resultado[j];
 				resultado[j]=resultado[j+1];

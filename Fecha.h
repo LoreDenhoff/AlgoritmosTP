@@ -20,8 +20,8 @@ class Fecha{
 		int getMes() const; 
 		int getAnio() const;
 		
-		bool menorIgualQue(Fecha otraFecha) const;
-		bool mayorIgualQue(Fecha otraFecha) const;
+		bool menorIgualQue(const Fecha& otraFecha) const;
+		bool mayorIgualQue(const Fecha& otraFecha) const;
 };
 
 #endif

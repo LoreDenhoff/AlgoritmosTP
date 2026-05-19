@@ -6,11 +6,14 @@ using namespace std;
 
 class Especialidad {
     private:
-        int especialidadID; //para las relaciones
+        int especialidadId; //para las relaciones
         string nombre;
 
     public:
-        Especialidad(string nombre);
+    	Especialidad();
+        Especialidad(int especialidadId, string nombre);
+        
+        int getEspecialidadId() const;
         string getEspecialidadNombre() const;
         //void setNombre(string nombre);
 };

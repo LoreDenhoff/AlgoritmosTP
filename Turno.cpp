@@ -1,11 +1,12 @@
 #include<string>
+#include<sstream>
 #include "Turno.h"
 
 Turno::Turno(int turnoID, Fecha fechaTurno, int duracion){
     this->turnoID= turnoID;
     this->fechaTurno= fechaTurno;
     this->duracion= duracion;
-    this->medico=nullptr;
+    this->medico=NULL;
 
 };
 Fecha Turno::getFechaTurno() const{
@@ -18,11 +19,17 @@ void Turno::asignarMedico(PersonalMedico* unMedico){
     medico= unMedico;
 };
 string Turno::getMedico() const{
-	if(medico==nullptr){
+	if(medico==NULL){
 		return "Sin medico asignado";
 	}
-    return medico->getNombre() + " " 
-    + medico->getApellido() + " - " 
-    + to_string(medico->getEspecialidadID());
+   stringstream ss;
+   ss<<medico->getNombre()
+     <<" - "
+     <<medico->getApellido()
+     <<" - "
+     <<medico->getEspecialidadId();
+return ss.str();
+   
+   
 };
 

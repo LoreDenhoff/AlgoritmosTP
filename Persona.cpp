@@ -1,10 +1,14 @@
 
 #include "Persona.h"
 
-string Persona::getNombre(){
+Persona::Persona(string nombre, string apellido){
+	this->nombre=nombre;
+	this->apellido=apellido;
+}
+string Persona::getNombre() const{
     return nombre;
 };
 
-string Persona::getApellido(){
+string Persona::getApellido() const{
     return apellido;
 };

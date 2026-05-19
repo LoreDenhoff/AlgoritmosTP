@@ -12,6 +12,7 @@ class Diagnostico {
 
     public:
         Diagnostico(int diagnosticoId, string nombre, int frecuencia);
+        int getDiagnosticoId() const;
         string getDiagnosticoNombre() const;
         int getDiagnosticoFrecuencia() const;
 };

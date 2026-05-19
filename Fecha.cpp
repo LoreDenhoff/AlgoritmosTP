@@ -55,7 +55,7 @@ bool Fecha::fechaValida(int dia, int mes, int anio) const{
 	return true;
 }
 
-bool Fecha::menorIgualQue(Fecha otraFecha) const{
+bool Fecha::menorIgualQue(const Fecha& otraFecha) const{
 	if(anio<otraFecha.getAnio()){
 		return true;
 	}
@@ -68,7 +68,7 @@ bool Fecha::menorIgualQue(Fecha otraFecha) const{
 	return false;
 }
 
-bool Fecha::mayorIgualQue(Fecha otraFecha) const{
+bool Fecha::mayorIgualQue(const Fecha& otraFecha) const{
 	if(anio>otraFecha.getAnio()){
 		return true;
 	}

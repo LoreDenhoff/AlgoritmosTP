@@ -1,25 +1,29 @@
 #ifndef INGRESO_H
 #define INGRESO_H
 
-#include <iostream>
-#include <vector>
-#include "Fecha.h"
+#include <string>
+#include"Fecha.h"
 
 using namespace std;
 
 class Ingreso {
     private:
-        int ingresoID;
+        int ingresoId;
         Fecha fechaIngreso; 
         Fecha fechaAlta;
+        bool tieneFechaAlta; //revisar
         string descripcion;
 
     public:
-        Ingreso(int ingresoID, Fecha fecha);
-        int getIngresoID() const;
-        //fecha alta
+        Ingreso(int ingresoId, Fecha fechaIngreso);
+        int getIngresoId() const;
         Fecha getFechaIngresoDerivacion() const;
+        bool getTieneFechaAlta() const;
+        string getDescripcion() const;
         Fecha getFechaAltaDerivacion() const;
+        
+        void setFechaAlta(Fecha fechaAlta);
+        void setDescripcion(string descripcion);
 };
 
 #endif

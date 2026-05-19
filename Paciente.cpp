@@ -1,6 +1,7 @@
 #include "Paciente.h"
 #include "Persona.h"
 #include "Ingreso.h"
+#include "Prioridad.h"
 #include <iostream>
 using namespace std;
 
@@ -28,7 +29,7 @@ int Paciente::getDni() const{
 float Paciente::getPesoKg() const{
     return pesoKg;
 };
-int Paciente::getPrioridad() const{
+Prioridad Paciente::getPrioridad() const{
     return prioridad;
 };
 void Paciente::agregarIngreso(const Ingreso& nuevoIngreso){

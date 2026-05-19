@@ -3,7 +3,7 @@
 #include<string>
 #include "Fecha.h"
 #include "PersonalMedico.h"
-using namescape std;
+using namespace std;
 
 class Turno{
     private:
@@ -18,8 +18,7 @@ class Turno{
         Fecha getFechaTurno() const;
         int getDuracion() const;
         void asignarMedico(PersonalMedico* unMedico);
-        string getMedico() const;
-        
+        string getMedico() const;        
 };
 #endif
 

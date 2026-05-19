@@ -42,7 +42,7 @@ void Hospital::mostrarInformacion() const{
 }
 
 bool Hospital::ofreceEspecialidad(string nombreEspecialidad) const{
-	for(int i=0; i<especialidades.size();i++){
+	for(size_t i=0; i<especialidades.size();i++){
 		if(especialidades[i].getEspecialidadNombre()==nombreEspecialidad){
 			return true;
 		}
@@ -64,22 +64,27 @@ int Hospital::camasDisponibles() const{
 
 int Hospital::pacientesAtendidosEnRango(Fecha fechaDesde, Fecha fechaHasta) const{
 	int cont=0;
-	for(int i=0; i<ingresos.size(); i++){
-		Fecha fechaIngreso=ingresos[i].getFechaIngresoDerivacion();
+	for(size_t i=0; i<ingreso.size(); i++){
+		Fecha fechaIngreso=ingreso[i].getFechaIngresoDerivacion();
 		if(fechaIngreso.mayorIgualQue(fechaDesde) && fechaIngreso.menorIgualQue(fechaHasta)){
-			cont++
+			cont++;
 		}
 	}
 	return cont;
 }
 
-void Hospital::ingresarPaciente(Paciente paciente){
+void Hospital::ingresarPaciente(Paciente paciente, Ingreso nuevoIngreso){
 	if(camasDisponibles()>0){ 
 		pacientesActivos.push_back(paciente);
+		ingreso.push_back(nuevoIngreso);
 	} else{
 		cout<<"No hay camas disponibles"<< endl;
 	}
 
+}
+
+int Hospital::cantPacientesActivos() const{
+	return pacientesActivos.size();
 }
 
 
