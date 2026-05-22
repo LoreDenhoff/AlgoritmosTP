@@ -1,0 +1,9 @@
+diagnosticoId;nombre;frecuencia
+1;Fractura;4
+2;Apendicitis;2
+3;Neumonia;5
+4;Bronquitis;3
+5;ControlGeneral;7
+6;ACV;1
+7;Hipertension;6
+8;Traumatismo;4

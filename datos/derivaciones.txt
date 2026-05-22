@@ -1,0 +1,10 @@
+hospitalOrigen;hospitalDestino;tiempoMinutos
+HGA;HIT;240
+HGA;HCO;180
+HGA;HMI;150
+HIT;HCO;90
+HIT;HSM;210
+HCO;HMI;35
+HCO;HSM;170
+HMI;HSM;200
+HSM;HGA;220

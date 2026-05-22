@@ -88,7 +88,7 @@ vector<Hospital>SistemaHospitalario::obtenerTodosLosHospitales() const{
 	//codigo
 	}
 
-//revisar
+//revisar ordenamiento
 vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 	vector<Hospital>hospitales=obtenerTodosLosHospitales();
 	vector<Hospital>resultado;

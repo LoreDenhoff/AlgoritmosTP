@@ -1,0 +1,9 @@
+codigoHospital;pacienteId;nombre;apellido;dni;fechaIngreso;diagnostico;prioridad;pesoKg
+HGA;8001;Juan;Perez;30123456;20250310;Fractura;3;72.5
+HIT;8002;Ana;Gomez;27654321;20250401;Apendicitis;1;65.0
+HCO;8003;Marta;Lopez;32888999;20250403;Neumonia;2;70.0
+HGA;8004;Pedro;Ruiz;25444555;20250405;Bronquitis;4;81.3
+HMI;8005;Lucia;Fernandez;40111222;20250406;ControlGeneral;5;58.2
+HSM;8006;Carlos;Diaz;29999111;20250407;ACV;1;88.0
+HCO;8007;Sofia;Martinez;35666777;20250408;Hipertension;3;62.4
+HIT;8008;Roberto;Suarez;23456123;20250409;Traumatismo;2;90.6

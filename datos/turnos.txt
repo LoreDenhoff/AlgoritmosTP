@@ -1,0 +1,10 @@
+codigoHospital;turnoId;pacienteId;medicoId;fechaTurno;especialidad;duracionMin
+HGA;5001;8001;201;20250315;Traumatologia;30
+HIT;5002;8002;305;20250402;Cirugia;90
+HCO;5003;8003;202;20250404;Clinica;45
+HGA;5004;8004;203;20250410;Pediatria;30
+HMI;5005;8005;204;20250412;Clinica;30
+HSM;5006;8006;306;20250408;Neurologia;60
+HCO;5007;8007;202;20250411;Cardiologia;40
+HIT;5008;8008;305;20250413;Traumatologia;50
+HGA;5009;8001;201;20250420;Cardiologia;30

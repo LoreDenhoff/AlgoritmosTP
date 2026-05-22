@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <limits>
 #include <stdexcept>
+#include "SistemaHospitalario.h"
 #include "Hospital.h"
 #include "Paciente.h"
 #include "Ingreso.h"
 #include "Fecha.h"
 #include "Especialidad.h"
-
 using namespace std;
 
 int main() {
@@ -29,7 +31,7 @@ int main() {
 		if(f2.mayorIgualQue(f1)){
 			cout<<"fecha 2 es menor"<<endl;
 		}
-		
+		cout<<endl;
 		cout<<"========= PRUEBA DE INGRESO==========="<<endl;
 		Ingreso ingreso1(1,f1);
 		ingreso1.setDescripcion("Ingreso por guardia");
@@ -53,7 +55,7 @@ int main() {
 		cout<<"Descripcion "<<ingreso1.getDescripcion()<<endl;
 		cout<<endl;
 		
-		cout<<"========= PRUEBA DE INGRESO==========="<<endl;
+		cout<<"========= PRUEBA DE PACIENTE==========="<<endl;
 		Paciente p("Juan", "Perez", 1001, 30123456,72.5,2);
 		
 		p.agregarIngreso(ingreso1);
@@ -66,6 +68,7 @@ int main() {
 		cout<<"Prioridad: "<<p.getPrioridad()<<endl;
 		cout<<endl;
 		
+		//Esto debería estar en la clase. A determinar si el ingreso es del paciente o el hospital
 		cout<<"Ingreso del paciente"<<endl;
 		vector<Ingreso> ingresosPaciente=p.getIngresos();
 		for(int i=0; i<ingresosPaciente.size(); i++){

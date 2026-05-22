@@ -1,0 +1,16 @@
+especialidadId;nombre
+1;Cardiologia
+2;Clinica
+3;Pediatria
+4;Cirugia
+5;Neurologia
+6;Traumatologia
+7;Guardia
+8;TerapiaIntensiva
+9;Oncologia
+10;Neonatologia
+11;Ginecologia
+12;Oftalmologia
+13;Dermatologia
+14;Psiquiatria
+15;Kinesiologia

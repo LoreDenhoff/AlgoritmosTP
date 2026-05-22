@@ -1,0 +1,8 @@
+medicoId;nombre;apellido;especialidadId;especialidad
+201;Laura;Mendez;1;Cardiologia
+202;Miguel;Torres;2;Clinica
+203;Claudia;Rivera;3;Pediatria
+204;Esteban;Castro;2;Clinica
+305;Valeria;Nunez;4;Cirugia
+306;Martin;Arias;5;Neurologia
+307;Paula;Roldan;6;Traumatologia
