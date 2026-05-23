@@ -3,6 +3,7 @@
 #include<vector>
 #include<string>
 #include "Hospital.h"
+#include "Especialidad.h"
 using namespace std;
 
 class SistemaHospitalario{
@@ -11,6 +12,7 @@ class SistemaHospitalario{
 		int capacidadTabla;
 		int cantHospitales;
 		int funcionHash(string codigo) const;
+		Especialidad buscarEspecialidadPorId(int id, const vector<Especialidad>& especialidades) const;
 		
 	public:
 		SistemaHospitalario(int capacidadTabla);
@@ -24,6 +26,9 @@ class SistemaHospitalario{
 		void ordenarPorPresupuestoAnual();
 		vector<Hospital> buscarPorEspecialidad(string especialidad);
 		double factorCarga() const;		
+		
+		void cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad>& especialidades);
+		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital) const;
 };
 
 #endif

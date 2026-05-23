@@ -113,6 +113,7 @@ void Menu::registrarHospital(){
 		especialidades //antes
 	);
 	sistema.agregarHospital(hospital);
+	sistema.guardarHospitalEnArchivo("datos/hospitales.txt", hospital);
 	cout<<"Hospital registrado correctamente"<<endl;
 }
 

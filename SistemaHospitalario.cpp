@@ -1,5 +1,9 @@
 #include "SistemaHospitalario.h"
 #include<iostream>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
+using namespace std;
 
 SistemaHospitalario::SistemaHospitalario(int capacidadTabla){
 	this->capacidadTabla=capacidadTabla;
@@ -14,6 +18,15 @@ int SistemaHospitalario::funcionHash(string codigo) const{
 		suma+=codigo[i]*(i+1);
 	}
 	return suma%capacidadTabla;
+}
+
+Especialidad SistemaHospitalario::buscarEspecialidadPorId(int id, const vector<Especialidad>& especialidades) const{
+	for(size_t i=0;i<especialidades.size();i++){
+		if(especialidades[i].getEspecialidadId()==id){
+			return especialidades[i];
+		}
+	return Especialidad();
+	}
 }
 
 void SistemaHospitalario::agregarHospital(Hospital hospital){
@@ -115,6 +128,113 @@ vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 
 double SistemaHospitalario::factorCarga() const{
 	return (double) cantHospitales/capacidadTabla;
+}
+//Carga los hospitales al iniciar el sistema
+void SistemaHospitalario::cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad>& especialidades){
+	ifstream archivo(nombreArchivo.c_str());
+	if(!archivo.is_open()){
+		cout<<"No se pudo abrir el archivo de hospitales"<<endl;
+		return;
+	}
+	string linea;
+	while(getline(archivo, linea)){
+		if(linea.empty()){
+			continue;
+		}
+		stringstream ss(linea);
+		string hospitalId;
+		string nombre;
+		string ciudad;
+		string capacidadTexto;
+		string personalTexto;
+		string presupuestoTexto;
+		string especialidadesTexto;
+		
+		getline(ss, hospitalId, ';');
+		getline(ss, nombre, ';');
+		getline(ss, ciudad, ';');
+		getline(ss, capacidadTexto, ';');
+		getline(ss, personalTexto, ';');
+		getline(ss, presupuestoTexto, ';');
+		getline(ss, especialidadesTexto, ';');
+		
+		int capacidadCamas=atoi(capacidadTexto.c_str());
+		int personalMedico=atoi(personalTexto.c_str());
+		int presupuestoAnual=atoi(presupuestoTexto.c_str());
+		
+		vector<Especialidad> especialidadesHospital;
+		
+		stringstream ssEspecialidades(especialidadesTexto);
+		string idEspecialidadTexto;
+		
+		while(getline(ssEspecialidades, idEspecialidadTexto, ',')){
+			if(idEspecialidadTexto.empty()){
+				continue;
+			}
+			int idEspecialidad=atoi(idEspecialidadTexto.c_str());
+			Especialidad especialidad=buscarEspecialidadPorId( idEspecialidad, especialidades);
+			
+			if(especialidad.getEspecialidadId()!=0){
+				especialidadesHospital.push_back(especialidad);
+			}
+		}
+		
+	Hospital hospital(hospitalId, nombre, ciudad, capacidadCamas, personalMedico, presupuestoAnual, especialidadesHospital);
+	
+	agregarHospital(hospital);
+	}
+	archivo.close();
+	cout<<"Hospitales cargados correctamente"<< endl;
+}
+
+void SistemaHospitalario::guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital) const{
+	ifstream archivoLectura(nombreArchivo.c_str(), ios::ate);
+	
+	if(archivoLectura.is_open()){
+		if(archivoLectura.tellg()>0){
+			archivoLectura.seekg(-1,ios::end);
+			char ultimoCaracter;
+			archivoLectura.get(ultimoCaracter);
+			
+			archivoLectura.close();
+			
+			ofstream archivoSalto(nombreArchivo.c_str(), ios::app);
+			
+			if(ultimoCaracter !='\n'){
+				archivoSalto<<endl;
+			}
+			archivoSalto.close();
+		}else{
+			archivoLectura.close();
+		}
+	}
+	
+	ofstream archivo(nombreArchivo.c_str(), ios::app);
+	
+	if(!archivo.is_open()){
+		cout<<"No se pudo guardar el hospital"<<endl;
+		return;
+	}
+	
+
+	archivo<<hospital.getHospitalId()<<";";
+	archivo<<hospital.getNombre()<<";";
+	archivo<<hospital.getCiudad()<<";";
+	archivo<<hospital.getCapacidadCamas()<<";";
+	archivo<<hospital.getPersonalMedico()<<";";
+	archivo<<hospital.getPresupuestoAnual()<<";";
+		
+	vector<Especialidad> especialidadesHospital=hospital.getEspecialidades();
+		
+	for(size_t i=0;i<especialidadesHospital.size();i++){
+		archivo<<especialidadesHospital[i].getEspecialidadId();
+		if(i<especialidadesHospital.size()-1){
+			archivo<<",";
+		}			
+	}
+	archivo<<endl;
+	archivo.close();
+	cout<<"Hospital guarddo correctamente"<<endl;
 }
 
 
