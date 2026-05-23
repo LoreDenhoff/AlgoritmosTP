@@ -4,20 +4,22 @@
 #include "Especialidad.h"
 #include "Fecha.h"
 #include <vector>
-#include <tring>
-using namescape std;
+#include <string>
+using namespace std;
 
 class Menu{
 	private:
 		SistemaHospitalario sistema;
 		vector<Especialidad> especialidades;
 		
-		void mostrarMenu() const;
-		
+		void mostrarMenu() const;		
 		int leerEntero(string mensaje) const;
 		float leerFloat(string mensaje) const;
 		string leerTexto(string mensaje) const;
 		Fecha leerFecha(string mensaje) const;
+
+		vector<Especialidad> cargarEspecialidadHospital() const;
+		
 		//hospitales
 		void listarHospitales();
 		void buscarHospital();
@@ -26,7 +28,7 @@ class Menu{
 		void buscarPorEspecialidad();
 		//pacientes
 		void ingresarPaciente();
-		void contarPacientesRango();
+		void contarPacientesEnRango();
 		
 		void mostrarFactorCarga();
 		

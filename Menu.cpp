@@ -4,9 +4,10 @@
 #include "Ingreso.h"
 #include "Especialidad.h"
 #include "Fecha.h"
+#include <limits>
 #include <iostream>
 #include <stdexcept>
-using namescape std;
+using namespace std;
 
 Menu::Menu():sistema(10){
 	//carga de datos
@@ -76,7 +77,7 @@ Fecha Menu::leerFecha(string mensaje) const{
 }
 //Se usa cuando registras un hospital nuevo
 vector<Especialidad> Menu::cargarEspecialidadHospital() const{
-	vector<Especialidad> especialidadesHospital;
+	vector<Especialidad> especialidades;
 	int cant=leerEntero("Cantidad de especialidades del hospital: ");
 	
 	for(int i=0; i<cant;i++){
@@ -85,9 +86,9 @@ vector<Especialidad> Menu::cargarEspecialidadHospital() const{
 		string nombre=leerTexto("Nombre de la especialidad: ");
 		
 		Especialidad especialidad(id, nombre);
-		especialidadesHospital.push_back(especialidad);
+		especialidades.push_back(especialidad);
 	}
-	return especialidadesHospital;
+	return especialidades;
 }
 
 void Menu::registrarHospital(){
@@ -100,7 +101,7 @@ void Menu::registrarHospital(){
 	int personal=leerEntero("Cantidad de personal medico: ");
 	int presupuesto=leerEntero("Presupuesto anual: ");
 	
-	vector<Especialidad> especialidadesHospital=cargarEspecialidadHospital();
+	vector<Especialidad> especialidades=cargarEspecialidadHospital();
 	
 	Hospital hospital(
 		codigo,
@@ -109,7 +110,7 @@ void Menu::registrarHospital(){
 		capacidad,
 		personal,
 		presupuesto,
-		especialidadHospital
+		especialidades //antes
 	);
 	sistema.agregarHospital(hospital);
 	cout<<"Hospital registrado correctamente"<<endl;
@@ -118,7 +119,7 @@ void Menu::registrarHospital(){
 void Menu::listarHospitales(){
 	cout<<"\n ======Listado de Hospitales ======"<<endl;
 	
-	vector<Hospital>=sistema.obtenerTodosLosHospitales();
+	vector<Hospital> hospitales=sistema.obtenerTodosLosHospitales();
 	if(hospitales.empty()){
 		cout<<"No hay hospitales registrados"<<endl;
 		return;
@@ -133,7 +134,7 @@ void Menu::buscarHospital(){
 	cout<<"\n ======Buscar Hospital ======"<<endl;
 	
 	string codigo=leerTexto("Ingrese codigo del hospital: ");
-	Hospital * hospital=buscarHospital(codigo);
+	Hospital * hospital=sistema.buscarHospital(codigo);
 	if(hospital==NULL){
 		cout<<"Hospital no encontrado."<<endl;
 		return;
@@ -164,8 +165,130 @@ void Menu::buscarPorEspecialidad(){
 	}
 }
 
+void Menu::ingresarPaciente(){ //DEBERIAMOS PASARLE UN HOSPITAL X PARAMETRO?
+	cout << "\n === INGRESAR PACIENTE A HOSPITAL ===" << endl;
+	string codigoHospital = leerTexto("Codigo del hospital: ");
+	Hospital* hospital = sistema.buscarHospital(codigoHospital);
 
+	if(hospital == NULL){
+		cout <<"Hospital no encontrado." <<endl;
+		return;
+	}
 
+	string nombre= leerTexto("Nombre del paciente: ");
+	string apellido= leerTexto("Apellido del paciente: ");
+
+	int pacienteID= leerEntero("ID del paciente: ");
+	int dni= leerEntero("DNI: ");
+	float peso= leerFloat("Peso: ");
+
+	cout << "\nPrioridad: " << endl;
+	cout << "1. Critico" << endl;
+	cout << "2. Alto" << endl;
+	cout << "3. Medio" << endl;
+	cout << "4. Bajo" << endl;
+	cout << "5. Leve" << endl;
+
+	int prioridad= leerEntero("Ingrese prioridad: ");
+	int ingresoID= leerEntero("ID  del ingreso: ");
+	Fecha fechaIngreso= leerFecha("Fecha de ingrso: ");
+	string descripcion= leerTexto("Descripcion del ingreso: "); 
+
+	Paciente paciente(
+		nombre,
+		apellido,
+		pacienteID,
+		dni,
+		peso,
+		prioridad
+	);
+
+	Ingreso ingreso(ingresoID, fechaIngreso);
+	ingreso.setDescripcion(descripcion);
+
+	paciente.agregarIngreso(ingreso);
+	hospital->ingresarPaciente(paciente, ingreso);
+
+	cout << "Paciente ingresado correctamente." << endl;
+}
+
+void Menu::contarPacientesEnRango(){
+	cout << "\n=== PACIENTES ATENDIDOS EN RANGO ===" << endl;
+
+	string codigoHospital= leerTexto("Codigo del hospital: ");
+
+	Hospital* hospital= sistema.buscarHospital(codigoHospital);
+	if(hospital == NULL){
+		cout << "Hospital  no encontrado." << endl;
+		return;
+	}
+
+	Fecha desde = leerFecha("Fecha desde");
+	Fecha hasta = leerFecha("Fecha hasta");
+
+	int cantidad= hospital->pacientesAtendidosEnRango(desde, hasta);
+
+	cout << "Pacientes atendidos en ese rango: " << cantidad << endl;
+
+}
+
+void Menu::mostrarFactorCarga(){
+	cout << "\n === FACTOR DE CARGA ===" << endl;
+	cout << "Factor de carga: " << sistema.factorCarga() << endl;
+}
+
+void Menu::ejecutar(){
+	int opcion;
+
+	do{
+		try{
+			mostrarMenu();
+			while(!(cin >> opcion)){
+				cout << "Entrada invalida. Ingrese una opcion numerica: ";
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+			switch(opcion){
+				case 1:
+					registrarHospital();
+					break;
+				case 2:
+					listarHospitales();
+					break;
+				case 3:
+					buscarHospital();
+					break;
+				case 4:
+					eliminarHospital();
+					break;
+				case 5:
+					buscarPorEspecialidad();
+					break;
+				case 6:
+					ingresarPaciente();
+					break;
+				case 7:
+					contarPacientesEnRango();
+					break;
+				case 8:
+					mostrarFactorCarga();
+					break;
+				case 0:
+					cout << "Saliendo del sistema..." << endl;
+					break;
+				default:
+					cout << "Opcion invalida. Intente nuevamente." << endl;
+					break;
+				
+			}
+		}catch(invalid_argument& error){
+			cout << "Error: " <<error.what() << endl;
+		}
+	}while(opcion != 0);
+}
 
 
 
