@@ -29,6 +29,7 @@ class SistemaHospitalario{
 		
 		void cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad>& especialidades);
 		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital) const;
+		vector<Especialidad> cargarEspecialidadesDesdeArchivo(string nombreArchivo);
 };
 
 #endif

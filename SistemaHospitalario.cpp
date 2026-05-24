@@ -20,13 +20,42 @@ int SistemaHospitalario::funcionHash(string codigo) const{
 	return suma%capacidadTabla;
 }
 
+vector<Especialidad> SistemaHospitalario::cargarEspecialidadesDesdeArchivo(string nombreArchivo){
+	vector<Especialidad> especialidades;
+	ifstream archivo(nombreArchivo.c_str());
+	if(!archivo.is_open()){
+		cout<<"No se pudo abrir el archivo de especialidades "<<endl;
+		return especialidades;
+	}
+	string linea;
+	while(getline(archivo, linea)){
+		if(linea.empty()){
+			continue;
+		}
+		stringstream ss(linea);
+		string idTexto;
+		string nombre;
+		
+		getline(ss, idTexto, ';');
+		getline(ss, nombre, ';');
+		
+		int id=atoi(idTexto.c_str());
+		
+		Especialidad especialidad(id, nombre);
+		especialidades.push_back(especialidad);
+	}
+	archivo.close();
+	cout<<"Especialidades cargadas correctamente"<<endl;
+	return especialidades;
+}
+
 Especialidad SistemaHospitalario::buscarEspecialidadPorId(int id, const vector<Especialidad>& especialidades) const{
 	for(size_t i=0;i<especialidades.size();i++){
 		if(especialidades[i].getEspecialidadId()==id){
 			return especialidades[i];
 		}
-	return Especialidad();
 	}
+	return Especialidad();
 }
 
 void SistemaHospitalario::agregarHospital(Hospital hospital){
@@ -146,17 +175,19 @@ void SistemaHospitalario::cargarHospitalesDesdeArchivo(string nombreArchivo, con
 		string nombre;
 		string ciudad;
 		string capacidadTexto;
+		string especialidadesTexto;
 		string personalTexto;
 		string presupuestoTexto;
-		string especialidadesTexto;
+		
 		
 		getline(ss, hospitalId, ';');
 		getline(ss, nombre, ';');
 		getline(ss, ciudad, ';');
 		getline(ss, capacidadTexto, ';');
+		getline(ss, especialidadesTexto, ';');
 		getline(ss, personalTexto, ';');
 		getline(ss, presupuestoTexto, ';');
-		getline(ss, especialidadesTexto, ';');
+		
 		
 		int capacidadCamas=atoi(capacidadTexto.c_str());
 		int personalMedico=atoi(personalTexto.c_str());
@@ -179,7 +210,7 @@ void SistemaHospitalario::cargarHospitalesDesdeArchivo(string nombreArchivo, con
 			}
 		}
 		
-	Hospital hospital(hospitalId, nombre, ciudad, capacidadCamas, personalMedico, presupuestoAnual, especialidadesHospital);
+	Hospital hospital(hospitalId, nombre, ciudad, capacidadCamas, especialidadesHospital, personalMedico, presupuestoAnual);
 	
 	agregarHospital(hospital);
 	}

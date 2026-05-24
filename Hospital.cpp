@@ -1,5 +1,7 @@
 #include "Hospital.h"
 #include<iostream>
+#include <cctype>
+#include <algorithm>
 using namespace std;
 
 Hospital::Hospital(){
@@ -11,14 +13,14 @@ Hospital::Hospital(){
 	presupuestoAnual=0;
 }
 
-Hospital::Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas,	int personalMedico, int presupuestoAnual, vector<Especialidad> especialidades){
+Hospital::Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas, vector<Especialidad> especialidades, int personalMedico, int presupuestoAnual){
 	this->hospitalId= hospitalId;
 	this->nombre= nombre;
 	this->ciudad= ciudad;
 	this->capacidadCamas= capacidadCamas;
+	this->especialidades= especialidades;
 	this->personalMedico= personalMedico;
 	this->presupuestoAnual= presupuestoAnual;
-	this->especialidades= especialidades;
 }
 
 string Hospital::getHospitalId() const {return hospitalId;}
@@ -42,8 +44,15 @@ void Hospital::mostrarInformacion() const{
 }
 
 bool Hospital::ofreceEspecialidad(string nombreEspecialidad) const{
-	for(size_t i=0; i<especialidades.size();i++){
-		if(especialidades[i].getEspecialidadNombre()==nombreEspecialidad){
+	for(size_t i=0;i<nombreEspecialidad.length();i++){
+		nombreEspecialidad[i]=tolower(nombreEspecialidad[i]);
+	}
+	for(size_t i=0;i<especialidades.size();i++){
+		string nombre=especialidades[i].getEspecialidadNombre();
+		for(size_t j=0;j<nombre.length();j++){
+			nombre[j]=tolower(nombre[j]);
+		}
+		if(nombre==nombreEspecialidad){
 			return true;
 		}
 	}

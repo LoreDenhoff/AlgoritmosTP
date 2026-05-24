@@ -1,2 +1,0 @@
--podemos usar la libreria de excepciones?
--vamos a tener que crear(inicializar) cosas o todo viene del .txt?

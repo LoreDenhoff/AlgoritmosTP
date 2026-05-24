@@ -11,10 +11,14 @@ using namespace std;
 
 Menu::Menu():sistema(10){
 	//carga de datos
+	vector<Especialidad> especialidades=sistema.cargarEspecialidadesDesdeArchivo("datos/especialidades.txt");
+	sistema.cargarHospitalesDesdeArchivo("datos/hospitales.txt", especialidades);
 }
 
 void Menu::mostrarMenu() const{
-	cout<<"======= SISTEMA HOSPITALARIO ======="<<endl;
+	cout<<"        ----------------------        "<<endl;
+	cout<<"=======| SISTEMA HOSPITALARIO |======="<<endl;
+	cout<<"        ----------------------        "<<endl;
 	
 	cout<<"1. Registrar hospital"<<endl;
 	cout<<"2. Listar hospitales"<<endl;
@@ -23,8 +27,10 @@ void Menu::mostrarMenu() const{
 	cout<<"5. Buscar hospital por especialidad"<<endl;
 	cout<<"6. Ingresar paciente"<<endl;
 	cout<<"7. Pacientes atendidos por rango"<<endl;
+	cout<<"8. Mostrar factor de carga"<<endl;
 	cout<<"0. Salir"<<endl;
-	cout<<"Seleccione una opcion: ";
+	cout<<"Seleccione una opcion: "<<endl;
+	cout<<"\n";
 }
 
 int Menu::leerEntero(string mensaje) const{
@@ -108,9 +114,10 @@ void Menu::registrarHospital(){
 		nombre,
 		ciudad,
 		capacidad,
+		especialidades,
 		personal,
-		presupuesto,
-		especialidades //antes
+		presupuesto
+		
 	);
 	sistema.agregarHospital(hospital);
 	sistema.guardarHospitalEnArchivo("datos/hospitales.txt", hospital);

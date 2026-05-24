@@ -22,7 +22,7 @@ class Hospital{
 		
 	public:
 		Hospital();
-		Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas, int personalMedico, int presupuestoAnual, vector<Especialidad> especialidades);
+		Hospital(string hospitalId, string nombre, string ciudad, int capacidadCamas,vector<Especialidad> especialidades, int personalMedico, int presupuestoAnual);
 		
 		string getHospitalId() const;
 		string getNombre() const;
