@@ -1,8 +1,8 @@
-#include "Menu.h"
+#include "MenuPrincipal.h"
 
 int main() {
-    Menu menu;
-    menu.ejecutar();
+    MenuPrincipal menuPrincipal;
+    menuPrincipal.ejecutar();
 
     return 0;
 }

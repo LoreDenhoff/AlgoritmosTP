@@ -252,9 +252,6 @@ void SistemaHospitalario::guardarHospitalEnArchivo(string nombreArchivo, const H
 	archivo<<hospital.getNombre()<<";";
 	archivo<<hospital.getCiudad()<<";";
 	archivo<<hospital.getCapacidadCamas()<<";";
-	archivo<<hospital.getPersonalMedico()<<";";
-	archivo<<hospital.getPresupuestoAnual()<<";";
-		
 	vector<Especialidad> especialidadesHospital=hospital.getEspecialidades();
 		
 	for(size_t i=0;i<especialidadesHospital.size();i++){
@@ -263,6 +260,9 @@ void SistemaHospitalario::guardarHospitalEnArchivo(string nombreArchivo, const H
 			archivo<<",";
 		}			
 	}
+		
+	archivo<<hospital.getPersonalMedico()<<";";
+	archivo<<hospital.getPresupuestoAnual()<<";";
 	archivo<<endl;
 	archivo.close();
 	cout<<"Hospital guarddo correctamente"<<endl;
