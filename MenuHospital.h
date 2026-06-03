@@ -16,7 +16,7 @@ class MenuHospital{
 		vector<Especialidad> cargarEspecialidadHospital() const;
 		
 		void registrarHospital();
-		void listarHospitales();
+		void listarHospitalesOrdenados();
 		void buscarHospital();
 		void eliminarHospital();
 		void buscarPorEspecialidad();

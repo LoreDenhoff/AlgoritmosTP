@@ -1,4 +1,5 @@
 #include "SistemaHospitalario.h"
+#include "OrdenadorHospitales.h"
 #include<iostream>
 #include <fstream>
 #include <sstream>
@@ -119,16 +120,36 @@ vector<Hospital>SistemaHospitalario::obtenerTodosLosHospitales() const{
 	}
 	return hospitales;
 }
-	//ver que algoritmo de ordenamieno conviene
+
 	void SistemaHospitalario::ordenarPorCapacidadCamas(){
-	//codigo
+		vector<Hospital> hospitales=obtenerTodosLosHospitales();
+		OrdenadorHospitales::ordenar(hospitales, 1);
+		
+		for(size_t i=0; i<hospitales.size(); i++){
+			hospitales[i].mostrarInformacion();
+			cout<<endl;
+		}
 	}
 	void SistemaHospitalario::ordenarPorPersonalMedico(){
-	//codigo
+	vector<Hospital> hospitales=obtenerTodosLosHospitales();
+		OrdenadorHospitales::ordenar(hospitales, 2);
+		
+		for(size_t i=0; i<hospitales.size(); i++){
+			hospitales[i].mostrarInformacion();
+			cout<<endl;
+		}
 	}
+	
 	void SistemaHospitalario::ordenarPorPresupuestoAnual(){
-	//codigo
+	vector<Hospital> hospitales=obtenerTodosLosHospitales();
+		OrdenadorHospitales::ordenar(hospitales, 3);
+		
+		for(size_t i=0; i<hospitales.size(); i++){
+			hospitales[i].mostrarInformacion();
+			cout<<endl;
+		}
 	}
+	
 
 //revisar ordenamiento
 vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){

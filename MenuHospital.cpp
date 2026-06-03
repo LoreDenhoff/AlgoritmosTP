@@ -8,13 +8,13 @@ MenuHospital::MenuHospital(SistemaHospitalario& sistema) : sistema(sistema){}
 void MenuHospital::mostrarMenu() const{
 	cout<<"\n ======== MENU HOSPITALES ======="<<endl;
 	cout<<"1. Registrar hospital"<<endl;
-	cout<<"2. Listar hospitales"<<endl;
+	cout<<"2. Listar hospitales ordenados"<<endl;
 	cout<<"3. Buscar hospital"<<endl;
 	cout<<"4. Eliminar hospital"<<endl;
 	cout<<"5. Buscar por especialidad"<<endl;
 	cout<<"6. Mostrar factos de carga"<<endl;
 	cout<<"0. Volver al menu principal"<<endl;
-	cout<<"Seleccione suna opcion: ";
+	cout<<"Seleccione una opcion: ";
 }
 
 int MenuHospital::leerEntero(string mensaje) const{
@@ -66,16 +66,35 @@ void MenuHospital::registrarHospital(){
 	cout<<"Hospital registrado correctamente"<<endl;	
 }
 
-void MenuHospital::listarHospitales(){
-	vector<Hospital> hospitales=sistema.obtenerTodosLosHospitales();
-	if(hospitales.empty()){
-		cout<<"No hay hospitales registrados"<<endl;
-		return;
+void MenuHospital::listarHospitalesOrdenados(){
+	int opcionOrden;
+	do{
+			cout<<"\n ======== REGISTRAR HOSPITAL ======="<<endl;
+		cout<<"1. Ordenar por capacidad de camas"<<endl;
+		cout<<"2. Ordenar por cantidad de personal medico"<<endl;
+		cout<<"3. Ordenar por presupuesto anual"<<endl;
+		cout<<"0. Volver"<<endl;
+		
+		opcionOrden=leerEntero("Indique una opcion: ");
+		switch(opcionOrden){
+			case 1: 
+				sistema.ordenarPorCapacidadCamas();
+				break;
+			case 2: 
+				sistema.ordenarPorPersonalMedico();
+				break;
+			case 3: 
+				sistema.ordenarPorPresupuestoAnual();
+				break;
+			case 0: 
+				cout<<"Volviendo al menu hospitales"<<endl;
+				break;
+			default:
+				cout<<"Opcion invalida"<<endl;
+				break;
+		}	
 	}
-	for(size_t i=0; i<hospitales.size();i++){
-		cout<<"\nHospital " <<i+1<<endl;
-		hospitales[i].mostrarInformacion(); 
-	}
+	while(opcionOrden !=0);
 }
 
 void MenuHospital::buscarHospital(){
@@ -134,7 +153,7 @@ void MenuHospital::ejecutar(){
 				registrarHospital();
 				break;
 			case 2:
-				listarHospitales();
+				listarHospitalesOrdenados();
 				break;
 			case 3:
 				buscarHospital();

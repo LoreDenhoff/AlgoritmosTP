@@ -27,7 +27,7 @@ void MenuPrincipal::mostrarMenuPrincipal() const{
 	cout<<"4. Derivaciones"<<endl;
 	cout<<"5. Diagnosticos"<<endl;
 	cout<<"0. Salir"<<endl;
-	cout<<"Seleccione una opcion: "<<endl;
+	cout<<"Seleccione una opcion: ";
 }
 
 int MenuPrincipal::leerOpcion() const{
