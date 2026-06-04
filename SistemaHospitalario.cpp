@@ -1,4 +1,5 @@
 #include "SistemaHospitalario.h"
+#include "TablaHashHospitales.h"
 #include "OrdenadorHospitales.h"
 #include<iostream>
 #include <fstream>
@@ -6,20 +7,8 @@
 #include <cstdlib>
 using namespace std;
 
-SistemaHospitalario::SistemaHospitalario(int capacidadTabla){
-	this->capacidadTabla=capacidadTabla;
-	this->cantHospitales=0;
-	tablaHash.resize(capacidadTabla);	
-}
-
-//Existen diferentes manera d ehacer la funcion hash, comparar
-int SistemaHospitalario::funcionHash(string codigo) const{
-	int suma=0;
-	for(size_t i=0;i<codigo.length();i++){
-		suma+=codigo[i]*(i+1);
-	}
-	return suma%capacidadTabla;
-}
+SistemaHospitalario::SistemaHospitalario(int capacidadTabla)
+	: tablaHospitales(capacidadTabla){}
 
 vector<Especialidad> SistemaHospitalario::cargarEspecialidadesDesdeArchivo(string nombreArchivo){
 	vector<Especialidad> especialidades;
@@ -60,65 +49,22 @@ Especialidad SistemaHospitalario::buscarEspecialidadPorId(int id, const vector<E
 }
 
 void SistemaHospitalario::agregarHospital(Hospital hospital){
-	int indiceHash=funcionHash(hospital.getHospitalId());
-	
-	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
-		if(tablaHash[indiceHash][i].getHospitalId()==hospital.getHospitalId()){
-			cout<<"Hospital ya registrado"<<endl;
-			return;
-		}
-	}
-	tablaHash[indiceHash].push_back(hospital);
-	cantHospitales++;
+	return tablaHospitales.agregarHospital(hospital);
 }
 
 //falta derivar a otro hospital
 void SistemaHospitalario::eliminarHospital(string codigo){
-	int indiceHash=funcionHash(codigo);
+	return tablaHospitales.eliminarHospital(codigo);
 	
-	for(size_t i=0; i<tablaHash[indiceHash].size();i++) {
-		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
-			tablaHash[indiceHash].erase(tablaHash[indiceHash].begin()+i);
-			cantHospitales--;
-			cout<<"Hospital eliminado correctamente"<<endl;
-			return;
-		}
-	}
-	cout<<"Hospital no encontrado"<<endl;
 }
-
 Hospital* SistemaHospitalario::buscarHospital(string codigo){
-	int indiceHash=funcionHash(codigo);
-	
-	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
-		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
-			return &tablaHash[indiceHash][i];
-		}
-	}
-	return NULL;
+	return tablaHospitales.buscarHospital(codigo);
 }
-
 void SistemaHospitalario::mostrarHospital(string codigo) const{
-	int indiceHash=funcionHash(codigo);
-	
-	for(size_t i=0; i<tablaHash[indiceHash].size();i++){
-		if(tablaHash[indiceHash][i].getHospitalId()==codigo){
-			tablaHash[indiceHash][i].mostrarInformacion();
-			return;
-		}
-	}
-	cout<<"Hospital no esncontrado"<<endl;
+	return tablaHospitales.mostrarHospital(codigo);
 }
-
 vector<Hospital>SistemaHospitalario::obtenerTodosLosHospitales() const{
-	vector<Hospital>hospitales;
-	
-	for(size_t i=0;i<tablaHash.size();i++){
-		for(size_t j=0;j<tablaHash[i].size();j++){
-			hospitales.push_back(tablaHash[i][j]);
-		}
-	}
-	return hospitales;
+	return tablaHospitales.obtenerTodosLosHospitales();
 }
 
 	void SistemaHospitalario::ordenarPorCapacidadCamas(){
@@ -175,9 +121,8 @@ vector<Hospital>SistemaHospitalario::buscarPorEspecialidad(string especialidad){
 	}
 	return resultado;
 }
-
 double SistemaHospitalario::factorCarga() const{
-	return (double) cantHospitales/capacidadTabla;
+	return tablaHospitales.factorCarga();
 }
 //Carga los hospitales al iniciar el sistema
 void SistemaHospitalario::cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad>& especialidades){

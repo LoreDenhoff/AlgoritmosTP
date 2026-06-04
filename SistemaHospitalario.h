@@ -3,15 +3,13 @@
 #include<vector>
 #include<string>
 #include "Hospital.h"
+#include "TablaHashHospitales.h"
 #include "Especialidad.h"
 using namespace std;
 
 class SistemaHospitalario{
 	private:
-		vector<vector<Hospital> >tablaHash;
-		int capacidadTabla;
-		int cantHospitales;
-		int funcionHash(string codigo) const;
+		TablaHashHospitales tablaHospitales;
 		Especialidad buscarEspecialidadPorId(int id, const vector<Especialidad>& especialidades) const;
 		
 	public:
