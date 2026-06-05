@@ -12,8 +12,7 @@
 using namespace std;
 
 MenuPrincipal::MenuPrincipal() : sistema(10){
-	vector<Especialidad> especialidades=sistema.cargarEspecialidadesDesdeArchivo("datos/especialidades.txt");
-	sistema.cargarHospitalesDesdeArchivo("datos/hospitales.txt", especialidades);
+	sistema.inicializarSistema();
 }
 
 void MenuPrincipal::mostrarMenuPrincipal() const{

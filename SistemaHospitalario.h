@@ -2,18 +2,21 @@
 #define SISTEMAHOSPITALARIO_H
 #include<vector>
 #include<string>
-#include "Hospital.h"
-#include "TablaHashHospitales.h"
-#include "Especialidad.h"
+#include "GestorHospitales.h"
+#include "GestorEspecialidades.h"
 using namespace std;
 
 class SistemaHospitalario{
 	private:
-		TablaHashHospitales tablaHospitales;
-		Especialidad buscarEspecialidadPorId(int id, const vector<Especialidad>& especialidades) const;
+		GestorHospitales gestorHospitales;
+		GestorEspecialidades gestorEspecialidades;
 		
 	public:
 		SistemaHospitalario(int capacidadTabla);
+		void inicializarSistema();
+		GestorHospitales& getGestorHospitales();
+		GestorEspecialidades& getGestorEspecialidades();
+		
 		void agregarHospital(Hospital hospital);
 		void eliminarHospital(string codigo);
 		Hospital* buscarHospital(string codigo);

@@ -7,7 +7,7 @@ using namespace std;
 
 class TablaHashHospitales{
     private:
-        vector<vector<Hospital>> tablaHash;
+        vector<vector<Hospital> > tablaHash;
         int capacidadTabla;
         int cantHospitales;
 
