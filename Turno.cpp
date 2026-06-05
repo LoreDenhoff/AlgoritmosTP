@@ -1,8 +1,17 @@
 #include <iostream>
-#include<string>
-#include<sstream>
 #include "Turno.h"
 using namespace std;
+//inicializabamos asi?
+Turno::Turno(){
+	codigoHospital="";
+	turnoId=0;
+	pacienteId=0;
+	medicoId=0;
+	medicoId=0;
+	fechaTurno=Fecha();
+	especialidad="";
+	duracion=0;
+}
 
 Turno::Turno(string codigoHospital; int turnoId; int pacienteId; int medicoId; Fecha fechaTurno; string especialidad; int duracion;){
     this->codigoHospital=codigoHospital;
@@ -38,6 +47,10 @@ Fecha Turno::getFechaTurno() const{
 
 int Turno::getDuracion() const{
     return duracion;
+}
+
+string Turno::getEspecialidad() const{
+	return especialidad;
 }
 
 void Turno::asignarMedico(PersonalMedico* unMedico){

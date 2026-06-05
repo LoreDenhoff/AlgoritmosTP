@@ -18,15 +18,8 @@ class Turno{
         PersonalMedico* medico;
 
     public:
-        Turno(
-		string codigoHospital;
-        int turnoId;
-        int pacienteId;
-        int medicoId;
-        Fecha fechaTurno;
-        string especialidad;
-        int duracion;
-		);
+    	Turno();
+        Turno(string codigoHospital; int turnoId; int pacienteId; int medicoId; Fecha fechaTurno; string especialidad; int duracion);
 		
 	string getCodigoHospital() const;
         int getTurnoId() const;
