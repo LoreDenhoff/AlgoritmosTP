@@ -13,7 +13,7 @@ void GestorHospitales::agregarHospital(Hospital hospital){
 	tablaHospitales.agregarHospital(hospital);
 }
 
-//falta derivar a otro hospital NO ELIMINA
+//falta derivar a otro hospital ELIMINA SOLO DE LA TABLA PERO NO DEL ARCHIVO
 void GestorHospitales::eliminarHospital(string codigo){
 	tablaHospitales.eliminarHospital(codigo);
 }

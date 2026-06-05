@@ -7,18 +7,38 @@ using namespace std;
 
 class Turno{
     private:
-        int turnoID;
+    	string codigoHospital;
+        int turnoId;
+        int pacienteId;
+        int medicoId;
         Fecha fechaTurno;
+        string especialidad;
         int duracion;
 
         PersonalMedico* medico;
 
     public:
-        Turno(int turnoID, Fecha fechaTurno, int duracion);
+        Turno(
+		string codigoHospital;
+        int turnoId;
+        int pacienteId;
+        int medicoId;
+        Fecha fechaTurno;
+        string especialidad;
+        int duracion;
+		);
+		
+	string getCodigoHospital() const;
+        int getTurnoId() const;
+        int getPacienteId() const;
+        int getMedicoId() const;
         Fecha getFechaTurno() const;
-        int getDuracion() const;
-        void asignarMedico(PersonalMedico* unMedico);
-        string getMedico() const;        
+        string getEspecialidad() const;
+        int getDuracion() const;  
+		
+		void asignarMedico(PersonalMedico* unMedico);
+		string getMedico() const;
+		void mostrarInformacion() const;     
 };
 #endif
 
