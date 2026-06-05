@@ -33,7 +33,7 @@ void OrdenadorHospitales::merge(vector<Hospital> & hospitales, int inicio, int m
 	int j=0;
 	int k=inicio;
 	
-	while(i<izquierda.size() && j<derecha.size()){
+	while(i<(int)izquierda.size() && j<(int)derecha.size()){
 		bool ordenado=false;
 		
 		switch(criterio){
@@ -60,13 +60,13 @@ void OrdenadorHospitales::merge(vector<Hospital> & hospitales, int inicio, int m
 	}
 	k++;
 	}
-	while(i<izquierda.size()){
+	while(i<(int)izquierda.size()){
 		hospitales[k]=izquierda[i];
 		i++;
 		k++;
 	}
-	while(i<derecha.size()){
-		hospitales[k]=izquierda[j];
+	while(i<(int)derecha.size()){
+		hospitales[k]=derecha[j];
 		j++;
 		k++;
 	}

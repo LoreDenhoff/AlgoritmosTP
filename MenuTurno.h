@@ -12,6 +12,7 @@ class MenuTurno{
 		
 		void mostrarMenu() const;
 		int leerEntero(string mensaje) const;
+		string leerTexto(string mensaje) const;
 		Fecha leerFecha(string mensaje) const;
 		void registrarTurno();
 		void listarTurnosMedico();

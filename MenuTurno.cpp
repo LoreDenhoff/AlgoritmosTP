@@ -25,6 +25,13 @@ int MenuTurno::leerEntero(string mensaje) const{
 	return valor;
 }
 
+string MenuTurno:: leerTexto(string mensaje) const{
+	string texto;
+	cout<<mensaje;
+	getline(cin, texto);
+	return texto;
+}
+
 Fecha MenuTurno::leerFecha(string mensaje) const{
 	int dia;
 	int mes;
@@ -39,10 +46,16 @@ Fecha MenuTurno::leerFecha(string mensaje) const{
 
 void MenuTurno::registrarTurno(){ 
 	cout << "\n ======== REGISTRAR TURNO ========" << endl;
-	int turnoID=leerEntero("Id del turno: ");
-	Fecha fechaTurno=leerFecha("Fecha del turno: ");
-	int duracion=leerEntero("Duracion del turno en minutos: ");
-	Turno turno(turnoID, fechaTurno, duracion);
+	string codigoHospital = leerTexto("Codigo del hospital: ");
+	int turnoID = leerEntero("Id del turno: ");
+	int pacienteID = leerEntero("Id del paciente: ");
+	int medicoID = leerEntero("Id del medico: ");
+	Fecha fechaTurno = leerFecha("Fecha del turno: ");
+	cout << "Especialidad: ";
+	string especialidad;
+	getline(cin, especialidad);
+	int duracion = leerEntero("Duracion del turno en minutos: ");
+	Turno turno(codigoHospital, turnoID, pacienteID, medicoID, fechaTurno, especialidad, duracion);
 	turnosRegistrados.push_back(turno); 
 	cout<<"Turno registrado correctamente"<<endl;
 }
@@ -92,17 +105,3 @@ void MenuTurno::ejecutar(){
 	}
 	while(opcion!=0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

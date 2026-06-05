@@ -10,12 +10,35 @@ GestorHospitales::GestorHospitales(int capacidadTabla)
 	: tablaHospitales(capacidadTabla){}
 	
 void GestorHospitales::agregarHospital(Hospital hospital){
-	tablaHospitales.agregarHospital(hospital);
+	Hospital* existente= tablaHospitales.buscarHospital(hospital.getHospitalId());
+	if(existente!=NULL){
+		cout << "Ya existe un hospital con el codigo " << hospital.getHospitalId() <<endl;
+		return;
+	}
+	bool insertado= false;
+	Hospital* hospitalEnArbol= arbolHospitales.insertar(hospital, insertado);
+ 
+	if (insertado && hospitalEnArbol != NULL){
+		tablaHospitales.agregarHospital(hospitalEnArbol);
+	}
 }
 
 //falta derivar a otro hospital ELIMINA SOLO DE LA TABLA PERO NO DEL ARCHIVO
 void GestorHospitales::eliminarHospital(string codigo){
+	Hospital* existente= tablaHospitales.buscarHospital(codigo);
+	if(existente!=NULL){
+		cout << "Hospital no encontrado" << endl;
+		return;
+	}
+	//Reasignar
+	
 	tablaHospitales.eliminarHospital(codigo);
+	bool eliminado= arbolHospitales.eliminar(codigo);
+	if(eliminado){
+		cout << "Hospital eliminado correctamente" << endl;
+	}else{
+		cout << "No se pudo eliminar el hospital" <<endl;
+	}
 }
 
 Hospital* GestorHospitales::buscarHospital(string codigo){
@@ -42,11 +65,11 @@ void GestorHospitales::ordenarPorCapacidadCamas(){
 
 void GestorHospitales::ordenarPorPersonalMedico(){
 	vector<Hospital> hospitales=obtenerTodosLosHospitales();
-		OrdenadorHospitales::ordenar(hospitales, 2);
+	OrdenadorHospitales::ordenar(hospitales, 2);
 		
-		for(size_t i=0; i<hospitales.size(); i++){
-			hospitales[i].mostrarInformacion();
-			cout<<endl;
+	for(size_t i=0; i<hospitales.size(); i++){
+		hospitales[i].mostrarInformacion();
+		cout<<endl;
 	}
 }
 	
@@ -70,9 +93,9 @@ vector<Hospital>GestorHospitales::buscarPorEspecialidad(string especialidad){
 			resultado.push_back(hospitales[i]);
 		}
 	}
-	if(resultado.size()<=1){
-		return resultado;
-	}
+	//if(resultado.size()<=1){
+	//	return resultado;
+	//}
 	for(size_t i=0;i<resultado.size()-1;i++){
 		for(size_t j=0;j<resultado.size()-1;j++){
 			if(resultado[j].camasDisponibles()<resultado[j+1].camasDisponibles()){
@@ -101,6 +124,9 @@ void GestorHospitales::cargarHospitalesDesdeArchivo(string nombreArchivo, const 
 		if(linea.empty()){
 			continue;
 		}
+		if(linea.find("codigo") != string::npos){
+			continue;
+		}
 		stringstream ss(linea);
 		string hospitalId;
 		string nombre;
@@ -119,6 +145,9 @@ void GestorHospitales::cargarHospitalesDesdeArchivo(string nombreArchivo, const 
 		getline(ss, personalTexto, ';');
 		getline(ss, presupuestoTexto, ';');
 		
+		if(hospitalId.empty() || nombre.empty() ||ciudad.empty()){
+			continue;
+		}
 		
 		int capacidadCamas=atoi(capacidadTexto.c_str());
 		int personalMedico=atoi(personalTexto.c_str());

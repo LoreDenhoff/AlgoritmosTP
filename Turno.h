@@ -19,17 +19,16 @@ class Turno{
 
     public:
     	Turno();
-        Turno(string codigoHospital; int turnoId; int pacienteId; int medicoId; Fecha fechaTurno; string especialidad; int duracion);
+
+        Turno(string codigoHospital, int turnoId, int pacienteId, int medicoId, Fecha fechaTurno, string especialidad, int duracion);
 		
-	string getCodigoHospital() const;
+		string getCodigoHospital() const;
         int getTurnoId() const;
         int getPacienteId() const;
         int getMedicoId() const;
         Fecha getFechaTurno() const;
         string getEspecialidad() const;
         int getDuracion() const;  
-		
-		void asignarMedico(PersonalMedico* unMedico);
 		string getMedico() const;
 		void mostrarInformacion() const;     
 };

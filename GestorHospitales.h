@@ -5,10 +5,12 @@
 #include "Hospital.h"
 #include "Especialidad.h"
 #include "TablaHashHospitales.h"
+#include "ArbolHospitales.h"
 using namespace std;
 
 class GestorHospitales{
 	private:
+		ArbolHospitales arbolHospitales;
 		TablaHashHospitales tablaHospitales;
 		
 	public:

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "Turno.h"
 using namespace std;
 //inicializabamos asi?
@@ -11,17 +12,18 @@ Turno::Turno(){
 	fechaTurno=Fecha();
 	especialidad="";
 	duracion=0;
+	//medico=NULL;
 }
 
-Turno::Turno(string codigoHospital; int turnoId; int pacienteId; int medicoId; Fecha fechaTurno; string especialidad; int duracion;){
+Turno::Turno(string codigoHospital, int turnoId, int pacienteId, int medicoId, Fecha fechaTurno, string especialidad, int duracion){
     this->codigoHospital=codigoHospital;
-	this->turnoID= turnoID;
+	this->turnoId= turnoId;
 	this->pacienteId=pacienteId;
 	this->medicoId=medicoId;
     this->fechaTurno= fechaTurno;
     this->especialidad=especialidad;
-    this->duracion= duracion;
-    this->medico=NULL;//xq null si tienen que tener un medico asignado
+    this->duracion= duracion;    
+	//this->medico=NULL;//xq null si tienen que tener un medico asignado
 
 };
 
@@ -53,10 +55,6 @@ string Turno::getEspecialidad() const{
 	return especialidad;
 }
 
-void Turno::asignarMedico(PersonalMedico* unMedico){
-    medico= unMedico;
-}
-
 string Turno::getMedico() const{
 	if(medico==NULL){
 		return "Sin medico asignado";
@@ -76,7 +74,7 @@ void Turno::mostrarInformacion() const{
 	cout<<"Turno ID: "<<turnoId<<endl;
 	cout<<"Hospital: "<<codigoHospital<<endl;
 	cout<<"Paciente ID: "<<pacienteId<<endl;
-	cout<<"Fecha: "<<turnoId<<endl;
+	cout<<"Fecha: "<<turnoId<<endl
 		<<fechaTurno.getDia()<< "/"
 		<<fechaTurno.getMes()<< "/"
 		<<fechaTurno.getAnio()<< "/"<<endl;

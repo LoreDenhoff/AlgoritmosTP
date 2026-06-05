@@ -12,8 +12,6 @@ PersonalMedico::PersonalMedico(string nombre, string apellido, int medicoId,int 
 void PersonalMedico::mostrarInfo(){ //este hay que hacerlo para que PERSONA sea abstracta, esta en paciente tambien
     cout << "Nombre: " << getNombre() << endl;
     cout << "Apellido: " << getApellido() << endl;
-    cout << "Medico ID: " << medicoId << endl;
-    cout << "Especialidad ID: " << especialidadId << endl;
 };
 int PersonalMedico::getMedicoId() const{
     return medicoId;
