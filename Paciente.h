@@ -20,7 +20,7 @@ class Paciente: public Persona{
         public:
         Paciente(string nombre, string apellido, int pacienteID, int dni, 
             float pesoKg, int prioridad);
-        void mostrarInfo();
+        void mostrarInfo() const override;
         int getPacienteID() const;
         int getDni() const;
         float getPesoKg() const;

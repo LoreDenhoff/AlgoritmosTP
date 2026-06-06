@@ -12,7 +12,7 @@ Paciente::Paciente(string nombre, string apellido, int pacienteID, int dni, floa
     this->prioridad=static_cast<Prioridad>(prioridad);
 };
 
-void Paciente::mostrarInfo(){
+void Paciente::mostrarInfo() const{
     cout << "Nombre: " << getNombre() << endl;
     cout << "Apellido: " << getApellido() << endl;
     cout << "Paciente ID: " << pacienteID << endl;

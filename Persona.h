@@ -12,7 +12,7 @@ class Persona{
     public:
         Persona(string nombre, string apellido);
         virtual ~Persona(){};
-        virtual void mostrarInfo()=0;
+        virtual void mostrarInfo() const =0;
         string getNombre() const;
         string getApellido() const;
 };

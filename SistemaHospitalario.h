@@ -4,18 +4,20 @@
 #include<string>
 #include "GestorHospitales.h"
 #include "GestorEspecialidades.h"
+#include "GestorPacientes.h"
 using namespace std;
 
 class SistemaHospitalario{
 	private:
 		GestorHospitales gestorHospitales;
 		GestorEspecialidades gestorEspecialidades;
-		
+		GestorPacientes gestorPacientes;
 	public:
 		SistemaHospitalario(int capacidadTabla);
 		void inicializarSistema();
 		GestorHospitales& getGestorHospitales();
 		GestorEspecialidades& getGestorEspecialidades();
+		GestorPacientes& getGestorPacientes();
 		
 		void agregarHospital(Hospital hospital);
 		void eliminarHospital(string codigo);
