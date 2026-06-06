@@ -23,18 +23,18 @@ void GestorHospitales::agregarHospital(Hospital hospital){
 	}
 }
 
-//falta derivar a otro hospital ELIMINA SOLO DE LA TABLA PERO NO DEL ARCHIVO
+//falta derivar a otro hospital 
 void GestorHospitales::eliminarHospital(string codigo){
 	Hospital* existente= tablaHospitales.buscarHospital(codigo);
-	if(existente!=NULL){
+	if(existente==NULL){
 		cout << "Hospital no encontrado" << endl;
 		return;
 	}
-	//Reasignar
 	
 	tablaHospitales.eliminarHospital(codigo);
 	bool eliminado= arbolHospitales.eliminar(codigo);
 	if(eliminado){
+		actualizarArchivo("datos/hospitales.txt");
 		cout << "Hospital eliminado correctamente" << endl;
 	}else{
 		cout << "No se pudo eliminar el hospital" <<endl;
@@ -50,7 +50,7 @@ void GestorHospitales::mostrarHospital(string codigo) const{
 }
 
 vector<Hospital> GestorHospitales::obtenerTodosLosHospitales() const{
-	return tablaHospitales.obtenerTodosLosHospitales();
+	return arbolHospitales.obtenerTodos();
 }
 
 void GestorHospitales::ordenarPorCapacidadCamas(){
@@ -110,6 +110,40 @@ vector<Hospital>GestorHospitales::buscarPorEspecialidad(string especialidad){
 
 double GestorHospitales::factorCarga() const{
 	return tablaHospitales.factorCarga();
+}
+
+void GestorHospitales::actualizarArchivo(string nombreArchivo) const{
+	ofstream archivo(nombreArchivo.c_str());
+	if(!archivo.is_open()){
+		cout<<"No se pudo actualizar el archivo"<<endl;
+		return;
+	}
+	archivo<<"codigo;nombre;ciudad;capacidadCamas;especialidadIds;personalMedico;presupuestoAnual"<<endl;
+	vector<Hospital> hospitales=arbolHospitales.obtenerTodos();
+	
+	for(size_t i=0; i<hospitales.size(); i++){
+		archivo<<hospitales[i].getHospitalId()<<";";
+		archivo<<hospitales[i].getNombre()<<";";
+		archivo<<hospitales[i].getCiudad()<<";";
+		archivo<<hospitales[i].getCapacidadCamas()<<";";
+		
+		vector<Especialidad> especialidadesHospital=hospitales[i].getEspecialidades();
+		
+		for (size_t j=0; j<especialidadesHospital.size(); j++){
+			archivo<< especialidadesHospital[j].getEspecialidadId();
+			if(j<especialidadesHospital.size()-1){
+				archivo<<",";
+			}
+		}	
+		archivo<<";";
+		archivo<<hospitales[i].getPersonalMedico()<<";";	
+		archivo<<hospitales[i].getPresupuestoAnual()<<";";	
+		if(i<hospitales.size()-1){
+			archivo<<endl;
+		}
+	}
+	archivo.close();
+	cout<<"Archivo actualizado"<<endl;
 }
 
 //Carga los hospitales al iniciar el sistema

@@ -40,7 +40,7 @@ Hospital* ArbolHospitales::insertarRec(NodoHospital*& nodo, const Hospital& hosp
 	if(codigoNuevo>codigoActual){
 		NodoHospital* derecha=nodo->getDerecha();
 		Hospital* resultado=insertarRec(derecha, hospital, insertado);
-		nodo->setIzquierda(derecha);
+		nodo->setDerecha(derecha);
 		return resultado;
 	}
 	insertado=false;

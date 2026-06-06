@@ -26,6 +26,7 @@ class GestorHospitales{
 		void ordenarPorPresupuestoAnual();
 		vector<Hospital> buscarPorEspecialidad(string especialidad);
 		double factorCarga() const;
+		void actualizarArchivo(string nombreArchivo) const;
 		void cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad> & especialidades);
 		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital)const; 		
 };
