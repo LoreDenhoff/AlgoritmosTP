@@ -4,9 +4,10 @@
 using namespace std;
 
 class EntradaIndice{
-	public clave;
-	vector<int> valores;
-	EntradaIndice(int clave)
+	public:
+		int clave;
+		vector<int> valores;
+		EntradaIndice(int clave);
 };
 
 class TablaHashIndices{

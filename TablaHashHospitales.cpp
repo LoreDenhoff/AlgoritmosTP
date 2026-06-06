@@ -16,11 +16,14 @@ int TablaHashHospitales::funcionHash(string codigo) const{
     return suma % capacidadTabla;
 }
 
-void TablaHashHospitales::agregarHospital(Hospital hospital){
-    int indiceHash = funcionHash(hospital.getHospitalId());
+void TablaHashHospitales::agregarHospital(Hospital* hospital){
+	if(hospital==NULL){
+		return;
+	}
+    int indiceHash = funcionHash(hospital->getHospitalId());
 
     for (size_t i = 0; i < tablaHash[indiceHash].size(); i++){
-        if (tablaHash[indiceHash][i].getHospitalId() == hospital.getHospitalId()){
+        if (tablaHash[indiceHash][i]->getHospitalId() == hospital->getHospitalId()){
             cout << "Hospital ya registrado" << endl;
             return;
         }
@@ -35,50 +38,52 @@ void TablaHashHospitales::eliminarHospital(string codigo){
     int indiceHash = funcionHash(codigo);
 
     for (size_t i = 0; i < tablaHash[indiceHash].size(); i++){
-        if (tablaHash[indiceHash][i].getHospitalId() == codigo){
+        if (tablaHash[indiceHash][i]->getHospitalId() == codigo){
             tablaHash[indiceHash].erase(tablaHash[indiceHash].begin() + i);
             cantHospitales--;
             cout << "Hospital eliminado correctamente" << endl;
             return;
         }
     }
-    cout << "Hospital no encontrado" << endl;
 }
-// LLEVARME
+
 Hospital* TablaHashHospitales::buscarHospital(string codigo){
     int indiceHash = funcionHash(codigo);
 
     for (size_t i = 0; i < tablaHash[indiceHash].size(); i++){
-        if (tablaHash[indiceHash][i].getHospitalId() == codigo){
-            return &tablaHash[indiceHash][i];
+        if (tablaHash[indiceHash][i]->getHospitalId() == codigo){
+            return tablaHash[indiceHash][i];
         }
     }
     return NULL;
 }
-// LLEVARME
+
 void TablaHashHospitales::mostrarHospital(string codigo) const{
     int indiceHash = funcionHash(codigo);
 
     for (size_t i = 0; i < tablaHash[indiceHash].size(); i++){
-        if (tablaHash[indiceHash][i].getHospitalId() == codigo){
-            tablaHash[indiceHash][i].mostrarInformacion();
+        if (tablaHash[indiceHash][i]->getHospitalId() == codigo){
+            tablaHash[indiceHash][i]->mostrarInformacion();
             return;
         }
     }
     cout << "Hospital no encontrado" << endl;
 }
-// LLEVARME
+
 vector<Hospital> TablaHashHospitales::obtenerTodosLosHospitales() const{
     vector<Hospital> hospitales;
 
     for (size_t i = 0; i < tablaHash.size(); i++){
         for (size_t j = 0; j < tablaHash[i].size(); j++){
-            hospitales.push_back(tablaHash[i][j]);
+            hospitales.push_back(*(tablaHash[i][j]));
         }
     }
     return hospitales;
 }
 
 double TablaHashHospitales::factorCarga() const{
+	if(capacidadTabla==0){
+		return 0;
+	}
     return (double)cantHospitales / capacidadTabla;
 }

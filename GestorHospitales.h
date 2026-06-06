@@ -5,7 +5,7 @@
 #include "Hospital.h"
 #include "Especialidad.h"
 #include "TablaHashHospitales.h"
-#include "ArbolHospitales.h"
+#include "ArbolHospital.h"
 using namespace std;
 
 class GestorHospitales{
