@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -12,9 +13,9 @@ Fecha GestorPacientes::convertirTextoAFecha(string textoFecha) const {
         return Fecha();
     }
 
-    int anio= stoi(textoFecha.substr(0,4));
-    int mes= stoi(textoFecha.substr(4,2));
-    int dia= stoi(textoFecha.substr(6,2));
+    int anio= atoi(textoFecha.substr(0,4).c_str());
+    int mes= atoi(textoFecha.substr(4,2).c_str());
+    int dia= atoi(textoFecha.substr(6,2).c_str());
     return Fecha(dia, mes, anio);   
 }
 
@@ -61,20 +62,20 @@ void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo){
         string prioridadTexto;
         string pesoTexto;
 
-        getline(ss, codigoHospital, ',');
-        getline(ss, pacienteIdTexto, ',');
-        getline(ss, nombre, ',');
-        getline(ss, apellido, ',');
-        getline(ss, dniTexto, ',');
-        getline(ss, fechaIngresoTexto, ',');
-        getline(ss, diagnostico, ',');
-        getline(ss, prioridadTexto, ',');
-        getline(ss, pesoTexto, ',');
+        getline(ss, codigoHospital, ';');
+        getline(ss, pacienteIdTexto, ';');
+        getline(ss, nombre, ';');
+        getline(ss, apellido, ';');
+        getline(ss, dniTexto, ';');
+        getline(ss, fechaIngresoTexto, ';');
+        getline(ss, diagnostico, ';');
+        getline(ss, prioridadTexto, ';');
+        getline(ss, pesoTexto, ';');
          
-        int pacienteId = stoi(pacienteIdTexto);
-        int dni = stoi(dniTexto);
-        int prioridad = stoi(prioridadTexto);
-        float pesoKg = stof(pesoTexto);
+        int pacienteId = atoi(pacienteIdTexto.c_str());
+        int dni = atoi(dniTexto.c_str());
+        int prioridad = atoi(prioridadTexto.c_str());
+        float pesoKg = atof(pesoTexto.c_str());
 
         Paciente paciente(nombre, apellido, pacienteId, dni, pesoKg, prioridad);
 
@@ -98,4 +99,13 @@ void GestorPacientes::mostrarTodosLosPacientes() const{
         cout << "\nPaciente " << i+1 <<endl;
         pacientes[i].mostrarInfo() ;
     }
+}
+
+Paciente* GestorPacientes::buscarPacientePorDni(int dni){
+	for(size_t i=0; i<pacientes.size(); i++){
+		if(pacientes[i].getDni()==dni){
+			return &pacientes[i];
+		}
+	}
+	return NULL;
 }

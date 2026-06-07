@@ -2,13 +2,15 @@
 #define MENUTURNO_H
 #include <string>
 #include <vector>
-#include "Turno.h"
+#include "GestorTurnos.h"
+#include "GestorPacientes.h"
 #include "Fecha.h"
 using namespace std;
 
 class MenuTurno{
 	private:
-		vector<Turno>& turnosRegistrados;
+		GestorTurnos& gestorTurnos;
+		GestorPacientes& gestorPacientes;
 		
 		void mostrarMenu() const;
 		int leerEntero(string mensaje) const;
@@ -16,9 +18,10 @@ class MenuTurno{
 		Fecha leerFecha(string mensaje) const;
 		void registrarTurno();
 		void listarTurnosMedico();
+		void listarTurnosPacientePorDni();
 		
 	public:
-		MenuTurno(vector<Turno>& turnosRegistrados);
+		MenuTurno(GestorTurnos& gestorTurnos, GestorPacientes& gestorPacientes);
 		void ejecutar();
 };
 #endif

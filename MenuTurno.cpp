@@ -3,12 +3,13 @@
 #include "MenuTurno.h"
 using namespace std;
 
-MenuTurno::MenuTurno(vector<Turno>& turnosRegistrados) : turnosRegistrados(turnosRegistrados){}
+MenuTurno::MenuTurno(GestorTurnos& gestorTurnos, GestorPacientes& gestorPacientes) : gestorTurnos(gestorTurnos), gestorPacientes(gestorPacientes){}
 
 void MenuTurno::mostrarMenu() const{
 	cout<<"\n ======== MENU TURNO ======="<<endl;
 	cout<<"1. Registrar turno"<<endl;
 	cout<<"2. Listar turno de un medico"<<endl;
+	cout<<"3. Buscar turnos de un paciente por DNI"<<endl;
 	cout<<"0. Volver al menu principal"<<endl;
 	cout<<"Seleccione suna opcion: ";
 }
@@ -56,26 +57,32 @@ void MenuTurno::registrarTurno(){
 	getline(cin, especialidad);
 	int duracion = leerEntero("Duracion del turno en minutos: ");
 	Turno turno(codigoHospital, turnoID, pacienteID, medicoID, fechaTurno, especialidad, duracion);
-	turnosRegistrados.push_back(turno); 
+	gestorTurnos.agregarTurno(turno); 
+	gestorTurnos.guardarTurnoEnArchivo("datos/turnos.txt", turno);
 	cout<<"Turno registrado correctamente"<<endl;
 }
 
 void MenuTurno::listarTurnosMedico(){
-	cout << "\n ======== LISTADO DE TURNOS ========" << endl;
-	if(turnosRegistrados.empty()){
-		cout<<"No hay turnos registrados"<<endl;
+	cout << "\n ======== TURNOS DE MEDICO ========" << endl;
+	int medicoId=leerEntero("Ingrese ID del medico: " );
+	vector<Turno> turnos=gestorTurnos.buscarTurnosPorMedicoId(medicoId);
+	if(turnos.empty()){
+		cout<<"No se econtraron turnos"<<endl;
 		return;
 	}
-	for(size_t i=0;i<turnosRegistrados.size();i++){
-		Fecha fecha=turnosRegistrados[i].getFechaTurno();
-		cout<<"\nTurno"<<i+1<<endl;
-		cout<<"Fecha : "
-			<<fecha.getDia()<<"/"
-			<<fecha.getMes()<<"/"
-			<<fecha.getAnio()<<endl;
-		cout<<"Duracion: "<<turnosRegistrados[i].getDuracion()<<" minutos"<<endl;
-		cout<<"Medico: "<<turnosRegistrados[i].getMedico()<<endl;		
+	gestorTurnos.mostrarTurnos(turnos);
+}
+
+void MenuTurno::listarTurnosPacientePorDni(){
+	cout << "\n ======== TURNO DE PACIENTE ========" << endl;
+	int dni=leerEntero("Ingrese DNI del paciente: ");
+	
+	vector<Turno> turnos=gestorTurnos.buscarTurnosPorDni(dni, gestorPacientes);
+	if(turnos.empty()){
+		cout<<"No se encontraron turnos"<<endl;
+		return;
 	}
+	gestorTurnos.mostrarTurnos(turnos);
 }
 
 void MenuTurno::ejecutar(){
@@ -94,6 +101,9 @@ void MenuTurno::ejecutar(){
 				break;
 			case 2:
 				listarTurnosMedico();
+				break;
+			case 3:
+				listarTurnosPacientePorDni();
 				break;
 			case 0:
 				cout<<"Volviendo al menu principal..."<<endl;

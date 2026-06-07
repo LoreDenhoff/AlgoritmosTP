@@ -12,7 +12,7 @@ Turno::Turno(){
 	fechaTurno=Fecha();
 	especialidad="";
 	duracion=0;
-	//medico=NULL;
+	medico=NULL;
 }
 
 Turno::Turno(string codigoHospital, int turnoId, int pacienteId, int medicoId, Fecha fechaTurno, string especialidad, int duracion){
@@ -23,7 +23,7 @@ Turno::Turno(string codigoHospital, int turnoId, int pacienteId, int medicoId, F
     this->fechaTurno= fechaTurno;
     this->especialidad=especialidad;
     this->duracion= duracion;    
-	//this->medico=NULL;//xq null si tienen que tener un medico asignado
+	this->medico=NULL;//xq null si tienen que tener un medico asignado
 
 };
 
@@ -74,6 +74,7 @@ void Turno::mostrarInformacion() const{
 	cout<<"Turno ID: "<<turnoId<<endl;
 	cout<<"Hospital: "<<codigoHospital<<endl;
 	cout<<"Paciente ID: "<<pacienteId<<endl;
+	cout<<"Medico ID: "<<medicoId<<endl;
 	cout<<"Fecha: "<<turnoId<<endl
 		<<fechaTurno.getDia()<< "/"
 		<<fechaTurno.getMes()<< "/"

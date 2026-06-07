@@ -6,6 +6,7 @@ void SistemaHospitalario::inicializarSistema(){
 	gestorEspecialidades.cargarEspecialidadDesdeArchivo("datos/especialidades.txt");
 	gestorHospitales.cargarHospitalesDesdeArchivo("datos/hospitales.txt", gestorEspecialidades.obtenerTodas());
 	gestorPacientes.cargarPacientesDesdeArchivo("datos/pacientes.txt");
+	gestorTurnos.cargarTurnosDesdeArchivo("datos/turnos.txt");
 }
 
 GestorHospitales& SistemaHospitalario::getGestorHospitales(){
@@ -18,6 +19,10 @@ GestorEspecialidades& SistemaHospitalario::getGestorEspecialidades(){
 
 GestorPacientes& SistemaHospitalario::getGestorPacientes(){
 	return gestorPacientes;
+}
+
+GestorTurnos& SistemaHospitalario::getGestorTurnos(){
+	return gestorTurnos;
 }
 
 void SistemaHospitalario::agregarHospital(Hospital hospital){
