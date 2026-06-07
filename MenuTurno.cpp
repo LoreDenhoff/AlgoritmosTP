@@ -45,6 +45,27 @@ Fecha MenuTurno::leerFecha(string mensaje) const{
 	return Fecha(dia, mes, anio);
 }
 
+int MenuTurno::leerIdValido(string mensaje, string tipo) const{
+	int id;
+	while(true){
+		id=leerEntero(mensaje);
+		if(tipo=="paciente"){
+			Paciente* paciente=gestorPacientes.buscarPacientePorId(id);
+			if(paciente!=NULL){
+				return id;
+			}
+			cout<<"Paciente no encontrado. Intente nuevamente"<<endl;
+		}
+	/*	if(tipo=="medico"){
+			PersonalMedico* medico=gestorMedicos.buscarMedicoPorId(id);
+			if(medico!=NULL){
+				return id;
+			}
+			cout<<"Medico no encontrado. Intente nuevamente"<<endl;
+		}*/
+	}
+}
+
 void MenuTurno::mostrarHospitalesDisponibles() const{
 	vector<Hospital> hospitales=gestorHospitales.obtenerTodosLosHospitales();
 	if(hospitales.empty()){
@@ -85,7 +106,7 @@ void MenuTurno::registrarTurno(){
 	cout << "\n ======== REGISTRAR TURNO ========" << endl;
 	string codigoHospital = leerCodigoHospitalValido();
 	int turnoID = leerEntero("Id del turno: ");
-	int pacienteID = leerEntero("Id del paciente: ");
+	int pacienteID = leerIdValido("Id del paciente: ","paciente");
 	int medicoID = leerEntero("Id del medico: ");
 	Fecha fechaTurno = leerFecha("Fecha del turno: ");
 	cout << "Especialidad: ";

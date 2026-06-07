@@ -18,6 +18,7 @@ class MenuTurno{
 		int leerEntero(string mensaje) const;
 		string leerTexto(string mensaje) const;
 		Fecha leerFecha(string mensaje) const;
+		int leerIdValido(string mensaje, string tipo) const;
 		void mostrarHospitalesDisponibles() const;
 		string leerCodigoHospitalValido() const;
 		void registrarTurno();
