@@ -3,7 +3,7 @@
 #include "MenuTurno.h"
 using namespace std;
 
-MenuTurno::MenuTurno(GestorTurnos& gestorTurnos, GestorPacientes& gestorPacientes) : gestorTurnos(gestorTurnos), gestorPacientes(gestorPacientes){}
+MenuTurno::MenuTurno(GestorTurnos& gestorTurnos, GestorPacientes& gestorPacientes, GestorHospitales& gestorHospitales) : gestorTurnos(gestorTurnos), gestorPacientes(gestorPacientes), gestorHospitales(gestorHospitales){}
 
 void MenuTurno::mostrarMenu() const{
 	cout<<"\n ======== MENU TURNO ======="<<endl;
@@ -45,9 +45,45 @@ Fecha MenuTurno::leerFecha(string mensaje) const{
 	return Fecha(dia, mes, anio);
 }
 
+void MenuTurno::mostrarHospitalesDisponibles() const{
+	vector<Hospital> hospitales=gestorHospitales.obtenerTodosLosHospitales();
+	if(hospitales.empty()){
+		cout<<"No hay hospitales cargados en el sistema"<<endl;
+		return;
+	}
+	cout<<"\n Hospitales disponibles"<<endl;
+	for(size_t i=0; i<hospitales.size(); i++){
+		cout<<hospitales[i].getHospitalId()
+			<<" - "
+			<<hospitales[i].getNombre()
+			<<endl;
+	}
+}
+
+string MenuTurno::leerCodigoHospitalValido() const{
+	char respuesta;
+	cout<<"Desea ver los hospitales disponibles? (s/n): ";
+	cin>>respuesta;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	
+	if(respuesta=='s' || respuesta=='S'){
+		mostrarHospitalesDisponibles();
+	}
+	string codigoHospital;
+	while(true){
+		codigoHospital=leerTexto("Codigo del hospital: ");
+		Hospital* hospital=gestorHospitales.buscarHospital(codigoHospital);
+		if(hospital != NULL){
+			return codigoHospital;
+		}
+		
+		cout<<"Codigo invalido. Intente de nuevo"<<endl;
+	}
+}
+
 void MenuTurno::registrarTurno(){ 
 	cout << "\n ======== REGISTRAR TURNO ========" << endl;
-	string codigoHospital = leerTexto("Codigo del hospital: ");
+	string codigoHospital = leerCodigoHospitalValido();
 	int turnoID = leerEntero("Id del turno: ");
 	int pacienteID = leerEntero("Id del paciente: ");
 	int medicoID = leerEntero("Id del medico: ");

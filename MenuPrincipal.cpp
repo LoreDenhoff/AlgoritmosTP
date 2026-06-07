@@ -59,7 +59,7 @@ void MenuPrincipal::ejecutar(){
 					break;
 				}
 				case 3:{
-					MenuTurno menuTurno(sistema.getGestorTurnos(), sistema.getGestorPacientes());
+					MenuTurno menuTurno(sistema.getGestorTurnos(), sistema.getGestorPacientes(), sistema.getGestorHospitales());
 					menuTurno.ejecutar();
 					break;
 				}
