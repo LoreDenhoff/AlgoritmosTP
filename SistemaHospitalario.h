@@ -6,6 +6,7 @@
 #include "GestorEspecialidades.h"
 #include "GestorPacientes.h"
 #include "GestorTurnos.h"
+#include "GestorPersonalMedico.h"
 using namespace std;
 
 class SistemaHospitalario{
@@ -14,6 +15,7 @@ class SistemaHospitalario{
 		GestorEspecialidades gestorEspecialidades;
 		GestorPacientes gestorPacientes;
 		GestorTurnos gestorTurnos;
+		GestorPersonalMedico gestorPersonalMedico;
 	public:
 		SistemaHospitalario(int capacidadTabla);
 		void inicializarSistema();
@@ -21,6 +23,7 @@ class SistemaHospitalario{
 		GestorEspecialidades& getGestorEspecialidades();
 		GestorPacientes& getGestorPacientes();
 		GestorTurnos& getGestorTurnos();
+		GestorPersonalMedico& getGestorPersonalMedico();
 		
 		void agregarHospital(Hospital hospital);
 		void eliminarHospital(string codigo);

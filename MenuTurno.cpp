@@ -3,7 +3,16 @@
 #include "MenuTurno.h"
 using namespace std;
 
-MenuTurno::MenuTurno(GestorTurnos& gestorTurnos, GestorPacientes& gestorPacientes, GestorHospitales& gestorHospitales) : gestorTurnos(gestorTurnos), gestorPacientes(gestorPacientes), gestorHospitales(gestorHospitales){}
+MenuTurno::MenuTurno(
+	GestorTurnos& gestorTurnos, 
+	GestorPacientes& gestorPacientes, 
+	GestorHospitales& gestorHospitales,
+	GestorPersonalMedico& gestorPersonalMedico,
+	GestorEspecialidades& gestorEspecialidades) : gestorTurnos(gestorTurnos), 
+	gestorPacientes(gestorPacientes), 
+	gestorHospitales(gestorHospitales),
+	gestorPersonalMedico (gestorPersonalMedico),
+	gestorEspecialidades (gestorEspecialidades){}
 
 void MenuTurno::mostrarMenu() const{
 	cout<<"\n ======== MENU TURNO ======="<<endl;
@@ -102,18 +111,101 @@ string MenuTurno::leerCodigoHospitalValido() const{
 	}
 }
 
+void MenuTurno::mostrarEspecialidadesDisponibles() const{
+	vector<Especialidad> especialidades=gestorEspecialidades.obtenerTodas();
+	if(especialidades.empty()){
+		cout<<"No hay especialidades cargdas en el sistema"<<endl;
+		return;
+	}
+	cout<<"\nEspecialidades disponibles:"<<endl;
+	for(size_t i=0; i<especialidades.size(); i++){
+		cout<<especialidades[i].getEspecialidadId()
+			<<" - "
+			<<especialidades[i].getEspecialidadNombre()
+			<<endl;
+	}
+}
+
+int MenuTurno::leerEspecialidadValida() const{
+	char respuesta;
+	cout<<"Desea ver las especialidades disponibles? (s/n): ";
+	cin>>respuesta;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	if(respuesta=='s'||respuesta=='S'){
+		mostrarEspecialidadesDisponibles();
+	}
+	int especialidadId;
+	while(true){
+		especialidadId=leerEntero("Id de la especialidad: ");
+		vector<Especialidad> especialidades=gestorEspecialidades.obtenerTodas();
+		for(size_t i=0; i<especialidades.size(); i++){
+			if(especialidades[i].getEspecialidadId()==especialidadId){
+				return especialidadId;
+			}
+		}
+		cout<<"Especialidad Invalida. Intente nuevamente"<<endl;
+	}
+}
+
+string MenuTurno::obtenerNombreEspecialidad(int especialidadId) const{
+	vector<Especialidad> especialidades=gestorEspecialidades.obtenerTodas();
+	for(size_t i=0; i<especialidades.size(); i++){
+		if(especialidades[i].getEspecialidadId()==especialidadId){
+			return especialidades[i].getEspecialidadNombre();
+		}
+	}
+	return "sin especialidad";
+}
+
+void MenuTurno::mostrarMedicosPorEspecialidad(int especialidadId) const{
+	vector<PersonalMedico> medicos=gestorPersonalMedico.buscarMedicosPorEspecialidad(especialidadId);
+	if(medicos.empty()){
+		cout<<"No hay medicos cargados para esa especialidad"<<endl;
+		return;
+	}
+	cout<<"\n Medicos disponibles para la especialidad: "<<endl;
+	for(size_t i=0; i<medicos.size(); i++){
+		cout<<medicos[i].getMedicoId()
+			<<" - "
+			<<medicos[i].getNombre()
+			<<" "
+			<<medicos[i].getApellido()
+			<<endl;
+	}
+}
+
+int MenuTurno::leerMedicoPorEspecialidad(int especialidadId) const{
+	vector<PersonalMedico> medicos=gestorPersonalMedico.buscarMedicosPorEspecialidad(especialidadId);
+	if(medicos.empty()){
+		cout<<"No hay medicos disponibles para esa especialidad"<<endl;
+		return -1;
+	}
+	mostrarMedicosPorEspecialidad(especialidadId);
+	int medicoId;
+	while(true){
+		medicoId=leerEntero("Id del medico: ");
+		if(gestorPersonalMedico.medicoTieneEspecialidad(medicoId, especialidadId)){
+			return medicoId;
+		}
+		cout<<"El medico ingresado no corresponde a esa especialidad. Intente de nuevo"<<endl;
+	}
+}
+
 void MenuTurno::registrarTurno(){ 
 	cout << "\n ======== REGISTRAR TURNO ========" << endl;
 	string codigoHospital = leerCodigoHospitalValido();
 	int turnoID = leerEntero("Id del turno: ");
 	int pacienteID = leerIdValido("Id del paciente: ","paciente");
-	int medicoID = leerEntero("Id del medico: ");
-	Fecha fechaTurno = leerFecha("Fecha del turno: ");
-	cout << "Especialidad: ";
-	string especialidad;
-	getline(cin, especialidad);
+	int especialidadId=leerEspecialidadValida();
+	int medicoId = leerMedicoPorEspecialidad(especialidadId);
+	if(medicoId==-1){
+		cout<<"No se puede registrar el turno no hay medicos para esa especialidad"<<endl;
+		return;
+	}
+	string especialidad=obtenerNombreEspecialidad(especialidadId);
+	Fecha fechaTurno=leerFecha("Fecha: ");
 	int duracion = leerEntero("Duracion del turno en minutos: ");
-	Turno turno(codigoHospital, turnoID, pacienteID, medicoID, fechaTurno, especialidad, duracion);
+	Turno turno(codigoHospital, turnoID, pacienteID, medicoId, fechaTurno, especialidad, duracion);
 	gestorTurnos.agregarTurno(turno); 
 	gestorTurnos.guardarTurnoEnArchivo("datos/turnos.txt", turno);
 	cout<<"Turno registrado correctamente"<<endl;

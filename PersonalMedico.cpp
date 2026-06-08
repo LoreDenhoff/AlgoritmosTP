@@ -3,19 +3,62 @@
 #include <iostream>
 using namespace std;
 
-PersonalMedico::PersonalMedico(string nombre, string apellido, int medicoId,int especialidadId):
-    Persona(nombre, apellido),medicoId(medicoId),especialidadId(especialidadId){};
-    //esta forma de crear el constructor es mas limpia, no hace falta usar el this-> para cada atributo 
-    //y ademas se llama al constructor de la clase base (Persona) para inicializar los atributos heredados (nombre y apellido).
-    // HABRIA QUE VER SI CONVIENE HACER TODOS ASI(PERO TRANKI)
+PersonalMedico::PersonalMedico(): Persona("",""){this->medicoId=0;}
 
-void PersonalMedico::mostrarInfo(){ //este hay que hacerlo para que PERSONA sea abstracta, esta en paciente tambien
-    cout << "Nombre: " << getNombre() << endl;
-    cout << "Apellido: " << getApellido() << endl;
-};
+PersonalMedico::PersonalMedico(string nombre, string apellido, int medicoId, vector<int> especialidadIds):
+    Persona(nombre, apellido){
+    	this->medicoId=medicoId;
+    	this->especialidadIds=especialidadIds;
+	}
+	
+void PersonalMedico::mostrarInfo() const{
+	cout<<"ID medico: "<<medicoId<<endl;
+	cout<<"Nombre: "<<getNombre()<<endl;
+	cout<<"Apellido: "<<getApellido()<<endl;
+	cout<<"Especialidades ID:  ";
+	
+	for(size_t i=0; i<especialidadIds.size(); i++){
+		cout<<especialidadIds[i];
+		if(i<especialidadIds.size()-1){
+			cout<<", ";
+		}
+	}
+	cout<<endl;
+}
+
 int PersonalMedico::getMedicoId() const{
-    return medicoId;
-};
-int PersonalMedico::getEspecialidadId() const{
-    return especialidadId;
-};
+	return medicoId;
+}
+
+vector<int> PersonalMedico::getEspecialidadesIds() const{
+	return especialidadIds;
+}
+
+bool PersonalMedico::tieneEspecialidad(int especialidadId) const{
+	for(size_t i=0; i<especialidadIds.size(); i++){
+		if(especialidadIds[i]==especialidadId){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

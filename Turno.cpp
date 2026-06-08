@@ -8,7 +8,6 @@ Turno::Turno(){
 	turnoId=0;
 	pacienteId=0;
 	medicoId=0;
-	medicoId=0;
 	fechaTurno=Fecha();
 	especialidad="";
 	duracion=0;
@@ -62,11 +61,19 @@ string Turno::getMedico() const{
    stringstream ss;
    ss<<medico->getNombre()
      <<" - "
-     <<medico->getApellido()
-     <<" - "
-     <<medico->getEspecialidadId();
-	return ss.str();
-   
+     <<medico->getApellido();
+
+     vector<int> especialidades=medico->getEspecialidadesIds();
+     if(!especialidades.empty()){
+     	ss<<"- Especialidades id: ";
+     	for(size_t i=0; especialidades.size(); i++){
+     		ss<<especialidades[i];
+     		if(i<especialidades.size()){
+     			ss<<", ";
+			 }	
+		 }
+	 }
+     return ss.str();
 }
 
 //en medico hay que hacer que muestre solo nombre y apellido
@@ -78,7 +85,7 @@ void Turno::mostrarInformacion() const{
 	cout<<"Fecha: "<<turnoId<<endl
 		<<fechaTurno.getDia()<< "/"
 		<<fechaTurno.getMes()<< "/"
-		<<fechaTurno.getAnio()<< "/"<<endl;
+		<<fechaTurno.getAnio()<<endl;
 	cout<<"Especialidad: "<<especialidad<<endl;
 	cout<<"Duracion: "<<duracion<<" minutos"<<endl;
 	cout<<"Medico: "<<getMedico()<<endl;

@@ -11,7 +11,7 @@ class Especialidad {
 
     public:
     	Especialidad();
-        Especialidad(int especialidadId, string nombre);
+        Especialidad(int especialidadesIds, string nombre);
         
         int getEspecialidadId() const;
         string getEspecialidadNombre() const;
