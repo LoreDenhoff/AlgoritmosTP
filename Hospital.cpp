@@ -82,6 +82,11 @@ int Hospital::pacientesAtendidosEnRango(Fecha fechaDesde, Fecha fechaHasta) cons
 	return cont;
 }
 
+bool Hospital::ingresosEnSemana(int x, Fecha fechaDesde, Fecha fechaHasta) const{
+	int cantIngresos=pacientesAtendidosEnRango(fechaDesde, fechaHasta);
+	return cantIngresos>x;
+}
+
 void Hospital::ingresarPaciente(Paciente paciente, Ingreso nuevoIngreso){
 	if(camasDisponibles()>0){ 
 		pacientesActivos.push_back(paciente);

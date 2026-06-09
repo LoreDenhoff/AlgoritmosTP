@@ -1,3 +1,4 @@
+
 #ifndef SISTEMAHOSPITALARIO_H
 #define SISTEMAHOSPITALARIO_H
 #include<vector>
@@ -39,6 +40,7 @@ class SistemaHospitalario{
 		void cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad>& especialidades);
 		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital) const;
 		vector<Especialidad> cargarEspecialidadesDesdeArchivo(string nombreArchivo);
+		vector<Hospital> hospitalesConSobrecarga(int x, Fecha fechaDesde, Fecha fechaHasta);
 };
 
 #endif

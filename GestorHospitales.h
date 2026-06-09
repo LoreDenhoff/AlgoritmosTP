@@ -6,6 +6,7 @@
 #include "Especialidad.h"
 #include "TablaHashHospitales.h"
 #include "ArbolHospital.h"
+#include "Fecha.h"
 using namespace std;
 
 class GestorHospitales{
@@ -28,6 +29,7 @@ class GestorHospitales{
 		double factorCarga() const;
 		void actualizarArchivo(string nombreArchivo) const;
 		void cargarHospitalesDesdeArchivo(string nombreArchivo, const vector<Especialidad> & especialidades);
-		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital)const; 		
+		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital)const; 
+		vector<Hospital> hospitalesConSobrecarga(int x, Fecha fechaDesde, Fecha fechaHasta);		
 };
 #endif

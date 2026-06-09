@@ -59,6 +59,7 @@ void GestorHospitales::ordenarPorCapacidadCamas(){
 		
 	for(size_t i=0; i<hospitales.size(); i++){
 		hospitales[i].mostrarInformacion();
+		cout<<"\n----------------------------------"<<endl;
 		cout<<endl;
 	}
 }
@@ -69,6 +70,7 @@ void GestorHospitales::ordenarPorPersonalMedico(){
 		
 	for(size_t i=0; i<hospitales.size(); i++){
 		hospitales[i].mostrarInformacion();
+		cout<<"\n----------------------------------"<<endl;
 		cout<<endl;
 	}
 }
@@ -79,6 +81,7 @@ void GestorHospitales::ordenarPorPresupuestoAnual(){
 		
 	for(size_t i=0; i<hospitales.size(); i++){
 		hospitales[i].mostrarInformacion();
+		cout<<"\n----------------------------------"<<endl;
 		cout<<endl;
 	}
 }
@@ -261,3 +264,36 @@ void GestorHospitales::guardarHospitalEnArchivo(string nombreArchivo, const Hosp
 	archivo.close();
 	cout<<"Hospital guarddo correctamente"<<endl;
 }
+
+vector<Hospital> GestorHospitales::hospitalesConSobrecarga(int x, Fecha fechaDesde, Fecha fechaHasta){
+	vector<Hospital> hospitales=obtenerTodosLosHospitales();
+	vector<Hospital>sobrecargados;
+	
+	for(size_t i=0; i<hospitales.size(); i++){
+		bool sobrecargaPorOcupacion=hospitales[i].tieneSobrecarga();
+		bool sobrecargaPorIngresos=hospitales[i].ingresosEnSemana(x, fechaDesde, fechaHasta);
+		if(sobrecargaPorOcupacion || sobrecargaPorIngresos){
+			sobrecargados.push_back(hospitales[i]);
+		}
+	}	
+	return sobrecargados;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

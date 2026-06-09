@@ -50,13 +50,14 @@ void MenuHospital::registrarHospital(){
 void MenuHospital::listarHospitalesOrdenados(){
 	int opcionOrden;
 	do{
-			cout<<"\n ======== REGISTRAR HOSPITAL ======="<<endl;
+			cout<<"\n ======== HOSPITALES EN ORDEN ======="<<endl;
 		cout<<"1. Ordenar por capacidad de camas"<<endl;
 		cout<<"2. Ordenar por cantidad de personal medico"<<endl;
 		cout<<"3. Ordenar por presupuesto anual"<<endl;
 		cout<<"0. Volver"<<endl;
 		
 		opcionOrden=leerEntero("Indique una opcion: ");
+		cout<<endl;
 		switch(opcionOrden){
 			case 1: 
 				sistema.ordenarPorCapacidadCamas();
@@ -110,6 +111,7 @@ void MenuHospital::buscarPorEspecialidad(){
 	for(size_t i=0;i<hospitales.size();i++){
 		cout<<"\nHospital "<<i+1<<endl;
 		hospitales[i].mostrarInformacion();
+		cout<<"\n----------------------------------"<<endl;
 	}
 }
 

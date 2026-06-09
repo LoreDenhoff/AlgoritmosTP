@@ -10,12 +10,12 @@ void MenuPaciente::mostrarMenu() const{
 	cout<<"\n ======== MENU PACIENTE ======="<<endl;
 	cout<<"1. Registrar ingreso"<<endl;
 	cout<<"2. Pacientes atendidos por rango"<<endl;
-	cout<<"3. Cola de prioridad"<<endl;
+	cout<<"3. Hospitales con sobrecarga"<<endl;
 	cout<<"0. Volver al menu principal"<<endl;
 	cout<<"Seleccione suna opcion: ";
 }
 
-void MenuPaciente::ingresarPaciente(){ //DEBERIAMOS PASARLE UN HOSPITAL X PARAMETRO?
+void MenuPaciente::ingresarPaciente(){ 
 	cout << "\n ======== INGRESAR PACIENTE A HOSPITAL ========" << endl;
 	string codigoHospital = leerTexto("Codigo del hospital: ");
 	Hospital* hospital = sistema.buscarHospital(codigoHospital);
@@ -74,6 +74,33 @@ void MenuPaciente::contarPacientesEnRango(){
 	cout << "Pacientes atendidos en ese rango: " << cantidad << endl;
 }
 
+void MenuPaciente::sobrecargaHospitales(){
+	cout << "\n======== HISPITALES CON SOBRECARGA ========" << endl;
+	int x=leerEntero("Cantidad de ingresos permitidos: ");
+	cout<<"\nIngrese rango de fecha"<<endl;
+	Fecha desde=leerFecha("Fecha desde: ");
+	Fecha hasta=leerFecha("Fecha hasta: ");
+	
+	vector<Hospital> hospitalesSobrecargados=sistema.hospitalesConSobrecarga(x, desde, hasta);
+	
+	if(hospitalesSobrecargados.empty()){
+		cout<<"No se encontraron hospitales con sobrecarga"<<endl;
+		return;
+	}
+	cout<<"\nHospitales con sobrecarga detectados:"<<endl;
+	for(size_t i=0; i<hospitalesSobrecargados.size(); i++){
+		cout<<"\n----------------------------------"<<endl;
+		hospitalesSobrecargados[i].mostrarInformacion();
+		int ingresosEnRango=hospitalesSobrecargados[i].pacientesAtendidosEnRango(desde, hasta);
+		cout<<"Ingresos en el rango evaluado"<<ingresosEnRango<<endl;
+		if(hospitalesSobrecargados[i].tieneSobrecarga()){
+			cout<<"Motivo: ocupacion superior al 90%"<<endl;
+		}
+		if(ingresosEnRango>x){
+			cout<<"Motivo: mas de "<<x<<"ingresos"<<endl;
+		}
+	}
+}
 void MenuPaciente::ejecutar(){
 	int opcion;
 	do{
@@ -90,6 +117,9 @@ void MenuPaciente::ejecutar(){
 				break;
 			case 2:
 				contarPacientesEnRango();
+				break;
+			case 3:
+				sobrecargaHospitales();
 				break;
 			case 0:
 				cout<<"Volviendo al menu principal..."<<endl;

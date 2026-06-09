@@ -5,7 +5,7 @@ SistemaHospitalario::SistemaHospitalario(int capacidadTabla):gestorHospitales(ca
 void SistemaHospitalario::inicializarSistema(){
 	gestorEspecialidades.cargarEspecialidadDesdeArchivo("datos/especialidades.txt");
 	gestorHospitales.cargarHospitalesDesdeArchivo("datos/hospitales.txt", gestorEspecialidades.obtenerTodas());
-	gestorPacientes.cargarPacientesDesdeArchivo("datos/pacientes.txt");
+	gestorPacientes.cargarPacientesDesdeArchivo("datos/pacientes.txt", gestorHospitales);
 	gestorPersonalMedico.cargarMedicosDesdeArchivo("datos/medicos.txt");
 	gestorTurnos.cargarTurnosDesdeArchivo("datos/turnos.txt");
 }
@@ -80,11 +80,12 @@ void SistemaHospitalario::guardarHospitalEnArchivo(string nombreArchivo, const H
 
 vector<Especialidad> SistemaHospitalario::cargarEspecialidadesDesdeArchivo(string nombreArchivo){
 	gestorEspecialidades.cargarEspecialidadDesdeArchivo(nombreArchivo);
-	return gestorEspecialidades.obtenerTodas();	
-	
+	return gestorEspecialidades.obtenerTodas();		
 }
 
-
+vector<Hospital> SistemaHospitalario::hospitalesConSobrecarga(int x, Fecha fechaDesde, Fecha fechaHasta){
+	return gestorHospitales.hospitalesConSobrecarga(x, fechaDesde, fechaHasta);
+}
 
 
 

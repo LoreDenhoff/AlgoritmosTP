@@ -18,6 +18,7 @@ class MenuPaciente{
 		void ingresarPaciente();
 		void listarPacientes();
 		void contarPacientesEnRango();
+		void sobrecargaHospitales();
 		
 	public:
 		MenuPaciente(SistemaHospitalario& sistema, vector<Paciente>& pacientesEnRango);
