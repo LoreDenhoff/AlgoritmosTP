@@ -6,6 +6,7 @@
 #include "TablaHashIndices.h"
 #include "GestorPacientes.h"
 #include "Turno.h"
+#include "Auxiliares.h"
 using namespace std;
 
 class GestorTurnos{
@@ -14,7 +15,6 @@ class GestorTurnos{
 		
 		TablaHashIndices indicePorPaciente;
 		TablaHashIndices indicePorMedico;
-		Fecha convertirTextoAFecha(string textoFecha) const;
 		void ordenarTurnosPorFecha(vector<Turno>& lista) const;
 	
 	public:

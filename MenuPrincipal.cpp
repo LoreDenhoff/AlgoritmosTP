@@ -29,17 +29,6 @@ void MenuPrincipal::mostrarMenuPrincipal() const{
 	cout<<"Seleccione una opcion: ";
 }
 
-int MenuPrincipal::leerOpcion() const{
-	int opcion;
-	while(!(cin>>opcion)){
-		cout<< "Entrada invalida. Ingrese unaopcion: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return opcion;
-}
-
 void MenuPrincipal::ejecutar(){
 	int opcion;
 	do{

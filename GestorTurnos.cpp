@@ -7,16 +7,6 @@ using namespace std;
 
 GestorTurnos::GestorTurnos(): indicePorPaciente(101), indicePorMedico(101) {}
 
-Fecha GestorTurnos::convertirTextoAFecha(string textoFecha) const{
-	if(textoFecha.length() !=8){
-		return Fecha();
-	}
-	int anio=atoi(textoFecha.substr(0,4).c_str());
-	int mes=atoi(textoFecha.substr(4,2).c_str());
-	int dia=atoi(textoFecha.substr(6,2).c_str());
-	
-	return Fecha(dia, mes, anio);
-}
 
 void GestorTurnos::ordenarTurnosPorFecha(vector<Turno>& lista) const{
 	for(size_t i=0; i<lista.size();i++){

@@ -1,60 +1,18 @@
 #include <iostream>
 #include <limits>
 #include "MenuPaciente.h"
+#include "Auxiliares.h"
 using namespace std;
 
 MenuPaciente::MenuPaciente(SistemaHospitalario& sistema, vector<Paciente>& pacientesRegistrados) : sistema(sistema), pacientesRegistrados(pacientesRegistrados){}
 	
 void MenuPaciente::mostrarMenu() const{
 	cout<<"\n ======== MENU PACIENTE ======="<<endl;
-	cout<<"1. Registrar paciente"<<endl;
+	cout<<"1. Registrar ingreso"<<endl;
 	cout<<"2. Pacientes atendidos por rango"<<endl;
 	cout<<"3. Cola de prioridad"<<endl;
 	cout<<"0. Volver al menu principal"<<endl;
 	cout<<"Seleccione suna opcion: ";
-}
-
-int MenuPaciente::leerEntero(string mensaje) const{
-	int valor;
-	cout<<mensaje;
-	while(!(cin>>valor)){
-		cout<<"Entrada invalida. Elija una opcion: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return valor;
-}
-
-float MenuPaciente::leerFloat(string mensaje) const{
-	float valor;
-	cout<<mensaje;
-	while(!(cin>>valor)){
-		cout<<"Entrada invalida. Elija una opcion: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return valor;
-}
-
-string MenuPaciente::leerTexto(string mensaje) const{
-	string texto;
-	cout<<mensaje;
-	getline(cin, texto);
-	return texto;	
-}
-
-Fecha MenuPaciente::leerFecha(string mensaje) const{
-	int dia;
-	int mes;
-	int anio;
-	cout<<mensaje<<endl;
-	
-	dia=leerEntero("Dia: ");
-	mes=leerEntero("Mes: ");
-	anio=leerEntero("Anio: ");
-	return Fecha(dia, mes, anio);
 }
 
 void MenuPaciente::ingresarPaciente(){ //DEBERIAMOS PASARLE UN HOSPITAL X PARAMETRO?

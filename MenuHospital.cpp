@@ -17,25 +17,6 @@ void MenuHospital::mostrarMenu() const{
 	cout<<"Seleccione una opcion: ";
 }
 
-int MenuHospital::leerEntero(string mensaje) const{
-	int valor;
-	cout<<mensaje;
-	while(!(cin>>valor)){
-		cout<<"Entrada invalida. Elija una opcion: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return valor;
-}
-
-string MenuHospital::leerTexto(string mensaje) const{
-	string texto;
-	cout<<mensaje;
-	getline(cin, texto);
-	return texto;
-}
-
 vector<Especialidad> MenuHospital::cargarEspecialidadHospital() const{
 	vector<Especialidad> especialidades;
 	int cant=leerEntero("Cantidad de especialidades del hospital: ");

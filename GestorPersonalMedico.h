@@ -16,7 +16,7 @@ class GestorPersonalMedico{
 	public:
 		GestorPersonalMedico();
 		
-		void agregarMedico(PersonalMedico medico);
+		void agregarMedico(PersonalMedico medico);//sirve?
 		void cargarMedicosDesdeArchivo(string nombreArchivo);
 		PersonalMedico* buscarMedicoPorId(int medicoId);
 		vector<PersonalMedico> buscarMedicosPorEspecialidad(int especialidadId) const;

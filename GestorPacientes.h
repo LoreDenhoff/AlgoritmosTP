@@ -4,14 +4,14 @@
 #include <string>
 #include "Paciente.h"
 #include "Fecha.h"
+#include "GestorHospitales.h"
 
 using namespace std;
 
 class GestorPacientes {
     private:
         vector<Paciente> pacientes;
-        Fecha convertirTextoAFecha( string textoAFecha) const;
-
+        
     public:
         GestorPacientes();
 
@@ -21,7 +21,7 @@ class GestorPacientes {
 
         vector<Paciente> obtenerTodosLosPacientes() const;
 
-        void cargarPacientesDesdeArchivo(string nombreArchivo);
+        void cargarPacientesDesdeArchivo(string nombreArchivo, GestorHospitales & gestorHospitales);
         void mostrarTodosLosPacientes() const;
 };
 

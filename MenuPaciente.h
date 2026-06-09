@@ -6,6 +6,7 @@
 #include "Paciente.h"
 #include "Ingreso.h"
 #include "Fecha.h"
+#include "Auxiliares.h"
 using namespace std;
 
 class MenuPaciente{
@@ -14,10 +15,6 @@ class MenuPaciente{
 		vector<Paciente>& pacientesRegistrados;
 		
 		void mostrarMenu() const;
-		int leerEntero(string mensaje) const;
-		float leerFloat(string mensaje) const;
-		string leerTexto(string mensaje) const;
-		Fecha leerFecha(string mensaje) const;
 		void ingresarPaciente();
 		void listarPacientes();
 		void contarPacientesEnRango();

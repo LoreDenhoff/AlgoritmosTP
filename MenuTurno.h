@@ -11,6 +11,7 @@
 #include "GestorPersonalMedico.h"
 #include "Especialidad.h"
 #include "Fecha.h"
+#include "Auxiliares.h"
 using namespace std;
 
 class MenuTurno{
@@ -22,9 +23,6 @@ class MenuTurno{
 		GestorEspecialidades& gestorEspecialidades;
 		
 		void mostrarMenu() const;
-		int leerEntero(string mensaje) const;
-		string leerTexto(string mensaje) const;
-		Fecha leerFecha(string mensaje) const;
 		int leerIdValido(string mensaje, string tipo) const;
 		void mostrarHospitalesDisponibles() const;
 		string leerCodigoHospitalValido() const;

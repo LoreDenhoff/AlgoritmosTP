@@ -1,4 +1,5 @@
 #include "GestorPacientes.h"
+#include "Auxiliares.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,17 +8,6 @@
 using namespace std;
 
 GestorPacientes::GestorPacientes(){}
-
-Fecha GestorPacientes::convertirTextoAFecha(string textoFecha) const {
-    if(textoFecha.length() != 8) {
-        return Fecha();
-    }
-
-    int anio= atoi(textoFecha.substr(0,4).c_str());
-    int mes= atoi(textoFecha.substr(4,2).c_str());
-    int dia= atoi(textoFecha.substr(6,2).c_str());
-    return Fecha(dia, mes, anio);   
-}
 
 void GestorPacientes::agregarPaciente(Paciente paciente) {
     pacientes.push_back(paciente);
@@ -36,7 +26,7 @@ vector<Paciente> GestorPacientes::obtenerTodosLosPacientes() const {
     return pacientes;
 }
 
-void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo){
+void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo, GestorHospitales& gestorHospitales){
     ifstream archivo(nombreArchivo.c_str());
     if(!archivo.is_open()){
         cout << "No se pudo abrir el archivo de pacientes: " << nombreArchivo << endl;
@@ -85,6 +75,15 @@ void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo){
 
         paciente.agregarIngreso(ingreso);
         pacientes.push_back(paciente);
+        
+        Hospital* hospital=gestorHospitales.buscarHospital(codigoHospital);
+        if(hospital !=NULL){
+        	hospital->ingresarPaciente(paciente, ingreso);
+		}
+		else{
+			cout<<"No se encontro el hospital"<<codigoHospital
+				<<" para el apciente "<<pacienteId<<endl;
+		}
     }
     archivo.close();
 }

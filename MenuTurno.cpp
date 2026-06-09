@@ -23,37 +23,6 @@ void MenuTurno::mostrarMenu() const{
 	cout<<"Seleccione suna opcion: ";
 }
 
-int MenuTurno::leerEntero(string mensaje) const{
-	int valor;
-	cout<<mensaje;
-	while(!(cin>>valor)){
-		cout<<"Entrada invalida. Elija una opcion: ";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return valor;
-}
-
-string MenuTurno:: leerTexto(string mensaje) const{
-	string texto;
-	cout<<mensaje;
-	getline(cin, texto);
-	return texto;
-}
-
-Fecha MenuTurno::leerFecha(string mensaje) const{
-	int dia;
-	int mes;
-	int anio;
-	cout<<mensaje<<endl;
-	
-	dia=leerEntero("Dia: ");
-	mes=leerEntero("Mes: ");
-	anio=leerEntero("Anio: ");
-	return Fecha(dia, mes, anio);
-}
-
 int MenuTurno::leerIdValido(string mensaje, string tipo) const{
 	int id;
 	while(true){

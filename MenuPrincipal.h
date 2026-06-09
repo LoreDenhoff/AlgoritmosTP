@@ -5,6 +5,7 @@
 #include "Paciente.h"
 #include "Turno.h"
 #include "Diagnostico.h"
+#include "Auxiliares.h"
 using namespace std;
 
 class MenuPrincipal{
@@ -16,8 +17,7 @@ class MenuPrincipal{
 		vector<Diagnostico> diagnosticosRegistrados;
 		
 		void mostrarMenuPrincipal() const;
-		int leerOpcion() const;
-		
+
 	public:
 		MenuPrincipal();
 		void ejecutar();
