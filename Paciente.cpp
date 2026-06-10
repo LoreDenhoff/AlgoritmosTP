@@ -32,6 +32,9 @@ float Paciente::getPesoKg() const{
 Prioridad Paciente::getPrioridad() const{
     return prioridad;
 };
+void Paciente::setPrioridad(int nuevaPrioridad){
+    prioridad= static_cast<Prioridad>(nuevaPrioridad);
+}
 void Paciente::agregarIngreso(const Ingreso& nuevoIngreso){
     ingresos.push_back(nuevoIngreso);
 }

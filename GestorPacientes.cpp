@@ -22,6 +22,15 @@ Paciente* GestorPacientes::buscarPacientePorId(int pacienteId) {
     return NULL;
 }
 
+Paciente* GestorPacientes::buscarPacientePorDni(int dni){
+    for(size_t i=0; i<pacientes.size(); i++){
+        if(pacientes[i].getDni()==dni){
+            return &pacientes[i];
+        }
+    }
+    return NULL;
+}
+
 vector<Paciente> GestorPacientes::obtenerTodosLosPacientes() const {
     return pacientes;
 }
@@ -75,6 +84,8 @@ void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo, GestorHo
 
         paciente.agregarIngreso(ingreso);
         pacientes.push_back(paciente);
+
+        listaDeEspera.insertar(paciente, fechaIngreso);
         
         Hospital* hospital=gestorHospitales.buscarHospital(codigoHospital);
         if(hospital !=NULL){
@@ -86,6 +97,7 @@ void GestorPacientes::cargarPacientesDesdeArchivo(string nombreArchivo, GestorHo
 		}
     }
     archivo.close();
+    cout<<"Pacientes cargados correctamente"<< endl;
 }
 
 void GestorPacientes::mostrarTodosLosPacientes() const{
@@ -100,11 +112,44 @@ void GestorPacientes::mostrarTodosLosPacientes() const{
     }
 }
 
-Paciente* GestorPacientes::buscarPacientePorDni(int dni){
-	for(size_t i=0; i<pacientes.size(); i++){
-		if(pacientes[i].getDni()==dni){
-			return &pacientes[i];
-		}
-	}
-	return NULL;
-}
+void GestorPacientes::insertarEnListaDeEspera(Paciente paciente, Fecha fechaIngreso){
+    listaDeEspera.insertar(paciente, fechaIngreso);
+};
+
+void GestorPacientes::mostrarListaDeEspera() const{
+    listaDeEspera.mostrarListaDeEspera();
+};
+
+void GestorPacientes::atenderPacienteMasPrioritario(){
+    Paciente pacienteExtraido("","",0,0,0,5);
+
+    if(!listaDeEspera.extraerMasPrioritario(pacienteExtraido)){
+        cout << "No hay pacientes en lista de espera" << endl;
+        return;
+    }
+
+    cout << "\nPaciente mas prioritario extraido de la lista de espera:" << endl;
+    pacienteExtraido.mostrarInfo();
+};
+
+void GestorPacientes::actualizarPrioridadPaciente(int dni, int nuevaPrioridad){
+    if (nuevaPrioridad < 1 || nuevaPrioridad > 5){
+        cout << "Prioridad invalidad. Debe estar entre 1 y 5." << endl;
+        return;
+    }
+
+    bool actualizada= listaDeEspera.actualizarPrioridad(dni, nuevaPrioridad);
+
+    if(!actualizada){
+        cout << "No se encontro un paciente con ese DNI en la lista de espera." << endl;
+        return;
+    }
+
+    Paciente* paciente= buscarPacientePorDni(dni);
+
+    if(paciente != NULL){
+        paciente->setPrioridad(nuevaPrioridad);
+    }
+
+    cout << "Prioridad actualizada correctamente." << endl;
+};

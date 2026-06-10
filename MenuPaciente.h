@@ -20,6 +20,10 @@ class MenuPaciente{
 		void contarPacientesEnRango();
 		void sobrecargaHospitales();
 		
+		void mostrarListaDeEspera();
+		void aterderPacienteMasPrioritario();
+		void ActualizarPrioridadPaciente();
+
 	public:
 		MenuPaciente(SistemaHospitalario& sistema, vector<Paciente>& pacientesEnRango);
 		void ejecutar();		

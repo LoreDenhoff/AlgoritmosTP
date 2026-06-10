@@ -5,12 +5,14 @@
 #include "Paciente.h"
 #include "Fecha.h"
 #include "GestorHospitales.h"
+#include "ColaPrioridadPacientes.h"
 
 using namespace std;
 
 class GestorPacientes {
     private:
         vector<Paciente> pacientes;
+        ColaPrioridadPacientes listaDeEspera;
         
     public:
         GestorPacientes();
@@ -23,6 +25,11 @@ class GestorPacientes {
 
         void cargarPacientesDesdeArchivo(string nombreArchivo, GestorHospitales & gestorHospitales);
         void mostrarTodosLosPacientes() const;
+
+        void insertarEnListaDeEspera(Paciente paciente, Fecha fechaIngreso);
+        void mostrarListaDeEspera() const;
+        void atenderPacienteMasPrioritario();
+        void actualizarPrioridadPaciente(int dni, int nuevaPrioridad);
 };
 
 #endif 
