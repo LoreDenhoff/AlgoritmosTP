@@ -8,7 +8,7 @@ ArbolHospitales::~ArbolHospitales(){
 	destruirRec(raiz);
 }
 
-void ArbolHospitales::destruirRec(NodoHospital* nodo){
+void ArbolHospitales::destruirRec(NodoArbol<Hospital>* nodo){
 	if(nodo != NULL){
 		destruirRec(nodo->getIzquierda());
 		destruirRec(nodo->getDerecha());
@@ -21,45 +21,45 @@ Hospital* ArbolHospitales::insertar(const Hospital& hospital, bool& insertado){
 	return insertarRec(raiz, hospital, insertado);
 }
 
-Hospital* ArbolHospitales::insertarRec(NodoHospital*& nodo, const Hospital& hospital, bool& insertado){
+Hospital* ArbolHospitales::insertarRec(NodoArbol<Hospital>*& nodo, const Hospital& hospital, bool& insertado){
 	if(nodo==NULL){
-		nodo=new NodoHospital(hospital);
+		nodo=new NodoArbol<Hospital>(hospital);
 		insertado=true;
-		return &(nodo->getHospital());
+		return &(nodo->getDato());
 	}
 
 	string codigoNuevo=hospital.getHospitalId();
-	string codigoActual=nodo->getHospital().getHospitalId();
+	string codigoActual=nodo->getDato().getHospitalId();
 	
 	if(codigoNuevo<codigoActual){
-		NodoHospital* izquierda=nodo->getIzquierda();
+		NodoArbol<Hospital>* izquierda=nodo->getIzquierda();
 		Hospital* resultado=insertarRec(izquierda, hospital, insertado);
 		nodo->setIzquierda(izquierda);
 		return resultado;
 	}
 	if(codigoNuevo>codigoActual){
-		NodoHospital* derecha=nodo->getDerecha();
+		NodoArbol<Hospital>* derecha=nodo->getDerecha();
 		Hospital* resultado=insertarRec(derecha, hospital, insertado);
 		nodo->setDerecha(derecha);
 		return resultado;
 	}
 	insertado=false;
-	return &(nodo->getHospital());
+	return &(nodo->getDato());
 }
 
 Hospital* ArbolHospitales::buscar(string codigo) const{
-	NodoHospital* nodo=buscarNodoRec(raiz, codigo);
+	NodoArbol<Hospital>* nodo=buscarNodoRec(raiz, codigo);
 	if(nodo==NULL){
 		return NULL;
 	}
-	return &(nodo->getHospital());
+	return &(nodo->getDato());
 }
 
-NodoHospital* ArbolHospitales::buscarNodoRec(NodoHospital* nodo, string codigo) const{
+NodoArbol<Hospital>* ArbolHospitales::buscarNodoRec(NodoArbol<Hospital>* nodo, string codigo) const{
 	if(nodo==NULL){
 		return NULL;
 	}
-	string codigoActual=nodo->getHospital().getHospitalId();
+	string codigoActual=nodo->getDato().getHospitalId();
 	if(codigo==codigoActual){
 		return nodo;
 	}
@@ -75,11 +75,11 @@ bool ArbolHospitales::eliminar(string codigo){
 	return eliminado;
 }
 
-NodoHospital* ArbolHospitales::eliminarRec(NodoHospital* nodo, string codigo, bool& eliminado){
+NodoArbol<Hospital>* ArbolHospitales::eliminarRec(NodoArbol<Hospital>* nodo, string codigo, bool& eliminado){
 	if(nodo==NULL){
 		return NULL;
 	}
-	string codigoActual=nodo->getHospital().getHospitalId();
+	string codigoActual=nodo->getDato().getHospitalId();
 	
 	if(codigo<codigoActual){
 		nodo->setIzquierda(eliminarRec(nodo->getIzquierda(), codigo, eliminado));
@@ -92,20 +92,20 @@ NodoHospital* ArbolHospitales::eliminarRec(NodoHospital* nodo, string codigo, bo
 	eliminado=true;
 	
 	if(nodo->getIzquierda()==NULL){
-		NodoHospital* derecha=nodo->getDerecha();
+		NodoArbol<Hospital>* derecha=nodo->getDerecha();
 		delete nodo;
 		return derecha;
 	}
 	if(nodo->getDerecha()==NULL){
-		NodoHospital* izquierda=nodo->getIzquierda();
+		NodoArbol<Hospital>* izquierda=nodo->getIzquierda();
 		delete nodo;
 		return izquierda;	
 } 
 
-NodoHospital* subArbolIzquierdo=nodo->getIzquierda();
-NodoHospital* subArbolDerecho=nodo->getDerecha();
+NodoArbol<Hospital>* subArbolIzquierdo=nodo->getIzquierda();
+NodoArbol<Hospital>* subArbolDerecho=nodo->getDerecha();
 
-NodoHospital* sucesor=NULL;
+NodoArbol<Hospital>* sucesor=NULL;
 subArbolDerecho=extraerMinimo(subArbolDerecho, sucesor);
 
 sucesor->setIzquierda(subArbolIzquierdo);
@@ -115,7 +115,7 @@ delete nodo;
 return sucesor;
 }
 	
-NodoHospital* ArbolHospitales::extraerMinimo(NodoHospital* nodo, NodoHospital*& minimo){
+NodoArbol<Hospital>* ArbolHospitales::extraerMinimo(NodoArbol<Hospital>* nodo, NodoArbol<Hospital>*& minimo){
 	if(nodo->getIzquierda()==NULL){
 		minimo=nodo;
 		return nodo->getDerecha();
@@ -131,10 +131,10 @@ vector<Hospital> ArbolHospitales::obtenerTodos() const{
 	return hospitales;
 }
 
-void ArbolHospitales::inOrdenRec(NodoHospital* nodo, vector<Hospital>& hospitales) const{
+void ArbolHospitales::inOrdenRec(NodoArbol<Hospital>* nodo, vector<Hospital>& hospitales) const{
 	if(nodo != NULL){
 		inOrdenRec(nodo->getIzquierda(), hospitales);
-		hospitales.push_back(nodo->getHospital());
+		hospitales.push_back(nodo->getDato());
 		inOrdenRec(nodo->getDerecha(), hospitales);
 	}
 }

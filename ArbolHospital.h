@@ -1,20 +1,21 @@
 #ifndef ARBOLHOSPITALES_H
 #define ARBOLHOSPITALES_H
-#include "NodoHospital.h"
+#include "NodoArbol.h"
+#include "Hospital.h"
 #include <vector>
 #include <string>
 using namespace std;
 
 class ArbolHospitales{
 	private:
-		NodoHospital* raiz;
+		NodoArbol<Hospital>* raiz;
 		
-		Hospital* insertarRec(NodoHospital*& nodo, const Hospital& hospital, bool& insertado);
-		NodoHospital* buscarNodoRec(NodoHospital* nodo, string codigo) const;
-		NodoHospital* eliminarRec(NodoHospital* nodo, string codigo, bool& eliminado);
-		NodoHospital* extraerMinimo(NodoHospital* nodo, NodoHospital*& minimo);
-		void inOrdenRec(NodoHospital* nodo, vector<Hospital>& hospitales) const;
-		void destruirRec(NodoHospital* nodo);
+		Hospital* insertarRec(NodoArbol<Hospital>*& nodo, const Hospital& hospital, bool& insertado);
+		NodoArbol<Hospital>* buscarNodoRec(NodoArbol<Hospital>* nodo, string codigo) const;
+		NodoArbol<Hospital>* eliminarRec(NodoArbol<Hospital>* nodo, string codigo, bool& eliminado);
+		NodoArbol<Hospital>* extraerMinimo(NodoArbol<Hospital>* nodo, NodoArbol<Hospital>*& minimo);
+		void inOrdenRec(NodoArbol<Hospital>* nodo, vector<Hospital>& hospitales) const;
+		void destruirRec(NodoArbol<Hospital>* nodo);
 		
 	public:
 		ArbolHospitales();
