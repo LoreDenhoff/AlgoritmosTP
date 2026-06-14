@@ -1,4 +1,3 @@
-
 #ifndef SISTEMAHOSPITALARIO_H
 #define SISTEMAHOSPITALARIO_H
 #include<vector>
@@ -8,6 +7,7 @@
 #include "GestorPacientes.h"
 #include "GestorTurnos.h"
 #include "GestorPersonalMedico.h"
+#include "ArbolDiagnostico.h"
 using namespace std;
 
 class SistemaHospitalario{
@@ -17,6 +17,7 @@ class SistemaHospitalario{
 		GestorPacientes gestorPacientes;
 		GestorTurnos gestorTurnos;
 		GestorPersonalMedico gestorPersonalMedico;
+		ArbolDiagnostico arbolDiagnostico;
 	public:
 		SistemaHospitalario(int capacidadTabla);
 		void inicializarSistema();
@@ -25,6 +26,7 @@ class SistemaHospitalario{
 		GestorPacientes& getGestorPacientes();
 		GestorTurnos& getGestorTurnos();
 		GestorPersonalMedico& getGestorPersonalMedico();
+		ArbolDiagnostico& getArbolDiagnostico();
 		
 		void agregarHospital(Hospital hospital);
 		void eliminarHospital(string codigo);

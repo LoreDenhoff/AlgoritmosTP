@@ -8,6 +8,7 @@ void SistemaHospitalario::inicializarSistema(){
 	gestorPacientes.cargarPacientesDesdeArchivo("datos/pacientes.txt", gestorHospitales);
 	gestorPersonalMedico.cargarMedicosDesdeArchivo("datos/medicos.txt");
 	gestorTurnos.cargarTurnosDesdeArchivo("datos/turnos.txt");
+	arbolDiagnostico.cargarDesdeArchivo("datos/diagnosticos.txt");
 }
 
 GestorHospitales& SistemaHospitalario::getGestorHospitales(){
@@ -28,6 +29,10 @@ GestorTurnos& SistemaHospitalario::getGestorTurnos(){
 
 GestorPersonalMedico& SistemaHospitalario::getGestorPersonalMedico(){
 	return gestorPersonalMedico;
+}
+
+ArbolDiagnostico& SistemaHospitalario::getArbolDiagnostico(){
+	return arbolDiagnostico;
 }
 
 void SistemaHospitalario::agregarHospital(Hospital hospital){

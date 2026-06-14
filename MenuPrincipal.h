@@ -14,8 +14,7 @@ class MenuPrincipal{
 		
 		vector<Paciente> pacientesRegistrados;
 		vector<Turno> turnosRegistrados;
-		vector<Diagnostico> diagnosticosRegistrados;
-		
+			
 		void mostrarMenuPrincipal() const;
 
 	public:

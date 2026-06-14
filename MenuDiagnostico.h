@@ -3,16 +3,17 @@
 #include <string>
 #include <vector>
 #include "Diagnostico.h"
+#include "ArbolDiagnostico.h"
 using namespace std;
 
 class MenuDiagnostico{
 	private:
-		vector<Diagnostico>& diagnosticosRegistrados;
+		ArbolDiagnostico& arbolDiagnostico;
 		
 		void mostrarMenu() const;
 	
 	public:
-		MenuDiagnostico(vector<Diagnostico>& diagnosticosRegistrados);
+		MenuDiagnostico(ArbolDiagnostico& arbolDiagnostico);
 		void ejecutar();
 };
 #endif

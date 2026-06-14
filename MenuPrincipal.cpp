@@ -63,7 +63,7 @@ void MenuPrincipal::ejecutar(){
 					break;
 				}
 				case 5:{
-					MenuDiagnostico menuDiagnostico(diagnosticosRegistrados);
+					MenuDiagnostico menuDiagnostico(sistema.getArbolDiagnostico());
 					menuDiagnostico.ejecutar();
 					break;
 				}
