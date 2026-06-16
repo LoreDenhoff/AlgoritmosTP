@@ -32,7 +32,6 @@ class Menu{
 		
 		void mostrarFactorCarga();
 		
-		
 	public:
 		Menu();
 		void ejecutar();

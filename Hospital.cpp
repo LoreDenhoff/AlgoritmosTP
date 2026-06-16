@@ -33,11 +33,11 @@ vector<Especialidad> Hospital::getEspecialidades() const {return especialidades;
 vector<Paciente> Hospital::getPacientesActivos() const {return pacientesActivos;}
 
 void Hospital::mostrarInformacion() const{
-	cout<< "Código: "<<hospitalId<< endl;
+	cout<< "Cï¿½digo: "<<hospitalId<< endl;
 	cout<< "Nombre: " <<nombre<< endl;
 	cout<< "Ciudad: " <<ciudad<< endl;
 	cout<< "Capacidad de camas: " <<capacidadCamas<< endl;
-	cout<< "Personal Médico: " <<personalMedico<< endl;
+	cout<< "Personal Mï¿½dico: " <<personalMedico<< endl;
 	cout<< "Presupuesto anual: " <<presupuestoAnual<< endl;
 	cout<< "Pacientes activos: " <<pacientesActivos.size()<< endl;
 	cout<< "Camas disponibles: " <<camasDisponibles()<< endl;
@@ -99,6 +99,28 @@ void Hospital::ingresarPaciente(Paciente paciente, Ingreso nuevoIngreso){
 
 int Hospital::cantPacientesActivos() const{
 	return pacientesActivos.size();
+}
+
+bool Hospital::puedeRecibirPacientes(int cantidad) const{
+	return camasDisponibles() >= cantidad;
+}
+
+void Hospital:: agregarPacienteActivo(Paciente paciente){
+	if(camasDisponibles() > 0){
+		pacientesActivos.push_back(paciente);
+	}else{
+		cout << "No hay camas disponibles para reasignar al paciente" << endl;
+	}
+}
+
+void Hospital::agregarPacientesActivos(vector<Paciente> pacientes){
+	for(size_t i= 0; i<pacientes.size(); i++){
+		agregarPacienteActivo(pacientes[i]);
+	}
+}
+
+void Hospital::limpiarPacientesActivos(){
+	pacientesActivos.clear();
 }
 
 

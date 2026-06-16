@@ -13,12 +13,14 @@ class GestorHospitales{
 	private:
 		ArbolHospitales arbolHospitales;
 		TablaHashHospitales tablaHospitales;
+
+		Hospital* buscarHospitalDisponibleParaReasignar(string codigoOrigen, int cantidadPacientes);
 		
 	public:
 		GestorHospitales(int capacidadTabla);
 		
 		void agregarHospital(Hospital hospital);
-		void eliminarHospital(string codigo);
+		bool eliminarHospital(string codigo, string& codigoHospitalDestino);
 		Hospital* buscarHospital(string codigo);
 		void mostrarHospital(string codigo) const;
 		vector<Hospital> obtenerTodosLosHospitales() const;

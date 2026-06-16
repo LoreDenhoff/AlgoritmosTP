@@ -58,7 +58,7 @@ void MenuPrincipal::ejecutar(){
 					break;
 				}
 				case 4:{
-					MenuDerivacion menuDerivacion;
+					MenuDerivacion menuDerivacion(sistema);
 					menuDerivacion.ejecutar();
 					break;
 				}

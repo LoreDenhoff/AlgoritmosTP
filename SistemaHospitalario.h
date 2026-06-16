@@ -8,6 +8,7 @@
 #include "GestorTurnos.h"
 #include "GestorPersonalMedico.h"
 #include "ArbolDiagnostico.h"
+#include "GestorDerivaciones.h"
 using namespace std;
 
 class SistemaHospitalario{
@@ -18,6 +19,7 @@ class SistemaHospitalario{
 		GestorTurnos gestorTurnos;
 		GestorPersonalMedico gestorPersonalMedico;
 		ArbolDiagnostico arbolDiagnostico;
+		GestorDerivaciones gestorDerivaciones;
 	public:
 		SistemaHospitalario(int capacidadTabla);
 		void inicializarSistema();
@@ -43,6 +45,10 @@ class SistemaHospitalario{
 		void guardarHospitalEnArchivo(string nombreArchivo, const Hospital& hospital) const;
 		vector<Especialidad> cargarEspecialidadesDesdeArchivo(string nombreArchivo);
 		vector<Hospital> hospitalesConSobrecarga(int x, Fecha fechaDesde, Fecha fechaHasta);
+
+		void cargarDerivacionesDesdeArchivo(string nombreArchivo);
+		void mostrarDerivaciones() const;
+		void calcularRutaDerivacion(string origen, string destino) const;
 };
 
 #endif

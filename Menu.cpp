@@ -4,6 +4,7 @@
 #include "Ingreso.h"
 #include "Especialidad.h"
 #include "Fecha.h"
+#include "MenuDerivacion.h"
 #include <limits>
 #include <iostream>
 #include <stdexcept>
@@ -13,6 +14,7 @@ Menu::Menu():sistema(10){
 	//carga de datos
 	vector<Especialidad> especialidades=sistema.cargarEspecialidadesDesdeArchivo("datos/especialidades.txt");
 	sistema.cargarHospitalesDesdeArchivo("datos/hospitales.txt", especialidades);
+	sistema.cargarDerivacionesDesdeArchivo("datos/derivaciones.txt");
 }
 
 void Menu::mostrarMenu() const{
@@ -244,6 +246,20 @@ void Menu::mostrarFactorCarga(){
 	cout << "\n === FACTOR DE CARGA ===" << endl;
 	cout << "Factor de carga: " << sistema.factorCarga() << endl;
 }
+/*
+void Menu::mostrarDerivacion(){
+	cout<<"\n ====== DERIVACIONES CARGADAS ======"<<endl;
+	sistema.mostrarDerivaciones();
+}
+
+void Menu::calcularRutaDerivacion(){
+	cout<<"\n ====== RUTA DE DERIVACION DE MENOR TIEMPO ======"<<endl;
+
+	string origen= leerTexto("Codigo del hospital origen: ");
+	string destino= leerTexto("Codigo del hospital destino: ");
+
+	sistema.calcularRutaDerivacion(origen, destino);
+}*/
 
 void Menu::ejecutar(){
 	int opcion;
@@ -284,6 +300,12 @@ void Menu::ejecutar(){
 				case 8:
 					mostrarFactorCarga();
 					break;
+				/*case 9:
+					mostrarDerivacion();
+					break;
+				case 10:
+					calcularRutaDerivacion();
+					break;*/
 				case 0:
 					cout << "Saliendo del sistema..." << endl;
 					break;

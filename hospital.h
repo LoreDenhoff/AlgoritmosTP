@@ -41,6 +41,11 @@ class Hospital{
 		int pacientesAtendidosEnRango (Fecha fechaDesde, Fecha fechaHasta) const;
 		void ingresarPaciente(Paciente paciente, Ingreso nuevoIngreso); //Ingreso un paciente o hago un ingreso?
 		bool ingresosEnSemana(int x, Fecha fechaDesde, Fecha fechaHasta) const;
+
+		bool puedeRecibirPacientes(int cantidad) const;
+		void agregarPacienteActivo(Paciente paciente);
+		void agregarPacientesActivos(vector<Paciente> pacientes);
+		void limpiarPacientesActivos();
 };
 
 #endif

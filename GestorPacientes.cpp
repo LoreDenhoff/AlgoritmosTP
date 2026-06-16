@@ -112,6 +112,66 @@ void GestorPacientes::mostrarTodosLosPacientes() const{
     }
 }
 
+void GestorPacientes::actualizarHospitalPacientesArchivo(string nombreArchivo, string codigoAnterior, string codigoNuevo){
+    if(codigoNuevo.empty()){
+        return;
+    }
+
+    ifstream archivoEntrada(nombreArchivo.c_str());
+
+    if(!archivoEntrada.is_open()){
+        cout<< "No se pudo abrir el archivo de pacientes para actualizar"<<endl;
+        cout<<nombreArchivo<<endl;
+        return;
+    }
+
+    vector<string> lineas;
+    string linea;
+
+    if(getline(archivoEntrada, linea)){
+        lineas.push_back(linea);
+    }
+
+    while(getline(archivoEntrada, linea)){
+        if(linea.empty()){
+            continue;
+        }
+        stringstream ss(linea);
+
+		string codigoHospital;
+		string restoLinea;
+
+		getline(ss, codigoHospital, ';');
+		getline(ss, restoLinea);
+
+		if(codigoHospital==codigoAnterior){
+			linea=codigoNuevo + ";" + restoLinea;
+		}
+
+		lineas.push_back(linea);
+    }
+
+    archivoEntrada.close();
+
+    ofstream archivoSalida(nombreArchivo.c_str());
+
+    if(!archivoSalida.is_open()){
+        cout<< "No se pudo actualizar el archivo de pacientes"<<endl;
+        return;
+    }
+
+    for(size_t i=0;i<lineas.size();i++){
+        archivoSalida<<lineas[i];
+
+        if(i<lineas.size()-1){
+            archivoSalida<<endl;
+        }
+    }
+    archivoSalida.close();
+
+    cout<<"Archivo de pacientes actualizado"<<endl;
+};
+
 void GestorPacientes::insertarEnListaDeEspera(Paciente paciente, Fecha fechaIngreso){
     listaDeEspera.insertar(paciente, fechaIngreso);
 };

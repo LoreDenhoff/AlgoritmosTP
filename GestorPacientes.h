@@ -25,6 +25,7 @@ class GestorPacientes {
 
         void cargarPacientesDesdeArchivo(string nombreArchivo, GestorHospitales & gestorHospitales);
         void mostrarTodosLosPacientes() const;
+        void actualizarHospitalPacientesArchivo(string nombreArchivo, string codigoAnterior, string codigoNuevo);
 
         void insertarEnListaDeEspera(Paciente paciente, Fecha fechaIngreso);
         void mostrarListaDeEspera() const;

@@ -9,6 +9,27 @@ using namespace std;
 GestorHospitales::GestorHospitales(int capacidadTabla)
 	: tablaHospitales(capacidadTabla){}
 	
+Hospital* GestorHospitales::buscarHospitalDisponibleParaReasignar(string codigoOrigen, int cantidadPacientes){
+	vector<Hospital> hospitales= arbolHospitales.obtenerTodos();
+
+	Hospital* mejorHospital= NULL;
+	int mayorCantidadDeCamas= -1;
+
+	for(size_t i= 0; i<hospitales.size(); i++){
+		string codigoActual= hospitales[i].getHospitalId();
+
+		if(codigoActual != codigoOrigen && hospitales[i].puedeRecibirPacientes(cantidadPacientes)){
+			Hospital* hospitalEnTabla= tablaHospitales.buscarHospital(codigoActual);
+
+			if(hospitalEnTabla != NULL && hospitalEnTabla->camasDisponibles() > mayorCantidadDeCamas){
+				mejorHospital= hospitalEnTabla;
+				mayorCantidadDeCamas= hospitalEnTabla->camasDisponibles();
+			}
+		}
+	}
+	return mejorHospital;
+}
+
 void GestorHospitales::agregarHospital(Hospital hospital){
 	Hospital* existente= tablaHospitales.buscarHospital(hospital.getHospitalId());
 	if(existente!=NULL){
@@ -24,6 +45,7 @@ void GestorHospitales::agregarHospital(Hospital hospital){
 }
 
 //falta derivar a otro hospital 
+/*
 void GestorHospitales::eliminarHospital(string codigo){
 	Hospital* existente= tablaHospitales.buscarHospital(codigo);
 	if(existente==NULL){
@@ -39,7 +61,50 @@ void GestorHospitales::eliminarHospital(string codigo){
 	}else{
 		cout << "No se pudo eliminar el hospital" <<endl;
 	}
+}*/
+
+bool GestorHospitales::eliminarHospital(string codigo, string& codigoHospitalDestino){
+	codigoHospitalDestino= "";
+	
+	Hospital* existente= tablaHospitales.buscarHospital(codigo);
+	if(existente==NULL){
+		cout << "Hospital no encontrado" << endl;
+		return false;
+	}
+
+	vector<Paciente> pacientesActivos= existente->getPacientesActivos();
+	int cantidadDePacientes=  pacientesActivos.size();
+
+	if(cantidadDePacientes>0){
+		Hospital* hospitalDestino= buscarHospitalDisponibleParaReasignar(codigo, cantidadDePacientes);
+
+		if(hospitalDestino==NULL){
+			cout << "No se puede eliminar el hospital porque tiene pacientes activos ";
+			cout << "y no hay otro hospital con camas suficientes para reasignarlos" << endl;
+			return false;
+		}
+
+		hospitalDestino->agregarPacientesActivos(pacientesActivos);
+		codigoHospitalDestino= hospitalDestino->getHospitalId();
+
+		cout<< "Pacientes reasignados al hospital ";
+		cout<< hospitalDestino->getHospitalId()<<" - "<< hospitalDestino->getNombre()<<endl;
+	}
+
+	tablaHospitales.eliminarHospital(codigo);
+
+	bool eliminado= arbolHospitales.eliminar(codigo);
+
+	if(eliminado){
+		actualizarArchivo("datos/hospitales.txt");
+		cout<< "Hospital eliminado correctamente"<<endl;
+		return true;
+	}else{
+		cout<< "No se pudo eliminar el hospital"<<endl;
+		return false;
+	}
 }
+
 
 Hospital* GestorHospitales::buscarHospital(string codigo){
 	return tablaHospitales.buscarHospital(codigo);

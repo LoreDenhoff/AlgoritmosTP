@@ -9,6 +9,7 @@ void SistemaHospitalario::inicializarSistema(){
 	gestorPersonalMedico.cargarMedicosDesdeArchivo("datos/medicos.txt");
 	gestorTurnos.cargarTurnosDesdeArchivo("datos/turnos.txt");
 	arbolDiagnostico.cargarDesdeArchivo("datos/diagnosticos.txt");
+	gestorDerivaciones.cargarDerivacionesDesdeArchivo("datos/derivaciones.txt");
 }
 
 GestorHospitales& SistemaHospitalario::getGestorHospitales(){
@@ -40,7 +41,16 @@ void SistemaHospitalario::agregarHospital(Hospital hospital){
 }
 
 void SistemaHospitalario::eliminarHospital(string codigo){
-	gestorHospitales.eliminarHospital(codigo);
+	string codigoHospitalDestino;
+
+	bool eliminado= gestorHospitales.eliminarHospital(codigo, codigoHospitalDestino);
+
+	if(eliminado && !codigoHospitalDestino.empty()){
+		gestorPacientes.actualizarHospitalPacientesArchivo(
+			"datos/pacienteS.txt",
+			codigo,
+			codigoHospitalDestino);
+	};
 }
 
 Hospital* SistemaHospitalario::buscarHospital(string codigo){
@@ -92,6 +102,17 @@ vector<Hospital> SistemaHospitalario::hospitalesConSobrecarga(int x, Fecha fecha
 	return gestorHospitales.hospitalesConSobrecarga(x, fechaDesde, fechaHasta);
 }
 
+void SistemaHospitalario::cargarDerivacionesDesdeArchivo(string nombreArchivo){
+	gestorDerivaciones.cargarDerivacionesDesdeArchivo(nombreArchivo);
+}
+
+void SistemaHospitalario::mostrarDerivaciones() const{
+	gestorDerivaciones.mostrarDerivaciones();
+}
+
+void SistemaHospitalario::calcularRutaDerivacion(string origen, string destino) const{
+	gestorDerivaciones.mostrarRutaConMenorTiempo(origen, destino);
+}
 
 
 
